@@ -3,6 +3,47 @@
 Newest findings first. Date observations, name evidence, distinguish proposals
 from decisions, and re-check facts that may drift. Sett answers in the devlog.
 
+## 2026-11-06 — Cleo: adapters filled, core pinned locally
+
+- `package.json` pins the core `blacksmith-organization-system` ^1.11.0. It
+  has no dependencies of its own, so `package-lock.json` holds one package and
+  `npm audit` reports 0. `task setup` (`npm ci`) and `task bos -- <args>` run it
+  from `node_modules`; CI checks that it installs and runs.
+- `hooks/register.js` (SessionStart) follows the Claude Code
+  "install dependencies into `CLAUDE_PLUGIN_DATA`" pattern: `npm ci
+  --ignore-scripts` when `package.json` differs from the cached copy, then
+  `bos workshop locate --json`, printed as plain-text context. Tested by
+  running it directly in three cases: a fresh install (0.4 s), the cached
+  run, and the core missing with the install skipped (exit 0 and a hint).
+  It has not run inside a live Claude Code or Codex session yet.
+- Codex (codex-cli 0.167.0, throwaway `CODEX_HOME`): `.codex-plugin/plugin.json`
+  installs as `bos` 1.0.1, enabled. Codex reads a Codex-schema marketplace only
+  at `.agents/plugins/marketplace.json`. Otherwise it falls back to
+  `.claude-plugin/marketplace.json`, which already lists `bos`. The rewritten
+  `.codex-plugin/marketplace.json` is therefore not read where it sits.
+  Codex also documents `.codex-plugin/` as a compatibility overlay; the current
+  format is a portable root `plugin.json`. *(assumed)* The legacy manifest's
+  `skills`/`mcpServers` keys follow the Codex scaffold; the docs don't list them.
+- The root `SKILL.md` collides with the skills CLI 1.7.6, which stops at a
+  root `SKILL.md` and lists one skill. `--full-depth` restores all 14, plus the
+  template's `skill-name` that was already being found. Claude Code, Codex and
+  Gemini load `skills/` and are not affected.
+- `claude plugin validate .` passes again (Claude Code 2.1.319). The empty
+  `hooks.json`/`.mcp.json` were the failure. The warnings left are the missing
+  icon, and that the root CLAUDE.md isn't plugin context, which is expected
+  because it is contributor-facing.
+- `.mcp.json`, `.app.json`, `.lsp.json`, `settings.json` are valid empty maps
+  on purpose: no MCP server, Codex app, BOS language server or plugin agent
+  exists yet. The core mentions MCP only as a "next" face (`src/bos.ts`), so
+  an MCP toolkit is core work first (Phase 2).
+- Joker's Dependabot round, reviewed: the uv-native policy, the lock/export
+  guard (`task docs:check-lock` and CI) and the repair of PR #40 by
+  re-resolution rather than editing the export are sound. The guard caught a
+  real divergence. The one gap Joker left open on purpose, npm, is now
+  configured on `development`; it becomes active only on `master`.
+- `.github/labeler.yml` is in the `actions/labeler@v4` format the workflow pins.
+  v5 changed the format, so update both together.
+
 ## 2026-11-06 — Joker: first grouped update validates the guard
 
 - After activation, Dependabot opened PR #40 with three updates: backrefs
