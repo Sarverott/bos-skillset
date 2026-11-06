@@ -27,7 +27,7 @@ tasks:
     cmds: ['npx --no-install bos {{.CLI_ARGS}}']
 
   skills:
-    desc: every skill an agent would install from here (the root skill and the bos-* skills)
+    desc: every skill an agent would install from here (the root skill, elements and workflows)
     cmds: ['npx -y skills add . --list --full-depth']
 
   plugin:
