@@ -18,6 +18,8 @@
 - [x] Integrate Sett's scaffolding: one commit per file on `dev/Sarverott`, merged into `development`; procedure in `docs/guidelines/integration-round.md`.
 - [ ] Fill or decide Sett's empty adapter placeholders (`.codex-plugin/plugin.json`, `.mcp.json`, `hooks/`, `settings.json`, `.lsp.json`, `.app.json`, `evals/`, `package.json`).
 - [ ] Decide how agents on other machines reach the House now that it lives in the scope's `.delegations/`.
-- [ ] Resolve the Dependabot stack in one checked lock/export batch; use grouped uv updates in `/docs` and activate the configuration on the default branch.
+- [x] Preserve Sett's Copilot ruleset export as its own commit on `dev/Sarverott` and integrate it into development.
+- [x] Resolve the Dependabot stack in one checked lock/export batch; use grouped uv updates in `/docs` and activate the configuration on the default branch (PRs #38 and #39).
+- [ ] Supply the missing `.github/labeler.yml` configuration so the separate Labeler job can pass.
 
 Phase 1 is follow-on work, not part of the contributor-guide cleanup.
