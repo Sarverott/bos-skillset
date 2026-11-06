@@ -1,8 +1,7 @@
 # BOS: the Blacksmith Organization System
 
-Context for any AI agent working with the BOS suit (Gemini CLI extension, Codex,
-Cursor or any MCP client). Claude Code gets the same through the plugin's
-session brief and skills.
+Context for any AI agent working in a BOS workshop (Gemini CLI extension,
+Codex, Cursor…). Claude Code gets the same through the plugin's skills.
 
 ## The workshop
 
@@ -24,17 +23,15 @@ a note or draft → `craftbook/scrapnotes/` · a mirror or closed repository →
 
 ## Start here
 
-Call these MCP tools of the `bos` server first (all read-only):
+When the core's `bos` command is installed (`npm install -g blacksmith-organization-system`):
 
-- `agent_brief`: the workshop, where you are in it, who must never be called, the rules
-- `workshop_status`: the whole workshop as one report with findings
-- `workshop_glossary`: the definition of any element (`forge`, `scope`, `sarcophag`…)
-- `flow_explain`, `flow_next`: the project's craft loop (branches, what moves where)
-- `house_show`, `house_may_call`: the House of Anubis, before calling any AI resident
+- `bos workshop locate`: the active workshop and the rule that found it
+- `bos workshop status`: the whole workshop as one report with findings (reads only)
+- `bos flow explain`, `bos flow next <branch>`: the project's craft loop
+- `bos help`: every tool
 
-Writing tools are not offered over MCP. Changing the workshop is done on the
-command line (`bos-skillset workshop open`, `bos-skillset workshop bootstrap
---dryRun`…), consciously.
+Tools that write (`bootstrap`, `scope bump`, `flow next-pr`…) are run
+consciously, with `--dryRun` first.
 
 ## Rules
 
@@ -46,7 +43,8 @@ command line (`bos-skillset workshop open`, `bos-skillset workshop bootstrap
 4. Branches: `master` (canon) ← `development` (here we code; `dev/<name>` per
    contributor). Never commit to `master` directly.
 5. Conventional commits (`type(scope): subject`).
-6. Ask the House before calling any ollama model: only `active` residents are
-   called. The EON family rests by its own decision: never call, prompt or inspect it.
+6. Ask the House (`resources/house/` of the skillset) before calling any ollama
+   model: only `active` residents are called. The EON family rests by its own
+   decision: never call, prompt or inspect it.
 7. The owner works in parallel with agents: re-check `git status` before acting
    and treat what you find as intended.

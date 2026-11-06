@@ -5,7 +5,7 @@
     "url": "https://github.com/Sarverott"
   },
   "metadata": {
-    "description": "The Blacksmith Organization System (BOS) for AI agents: skills, commands, hooks and MCP tools",
+    "description": "The Blacksmith Organization System (BOS) for AI agents: skills for working inside a workshop",
     "version": "1.0.1"
   },
   "plugins": [

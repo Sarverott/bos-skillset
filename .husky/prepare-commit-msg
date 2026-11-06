@@ -1,2 +1,0 @@
-# BOS drafts the message from the staged changes (procedures/describing)
-node bin/bos project prepare-message "$1" "$2"

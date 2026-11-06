@@ -1,0 +1,38 @@
+# Every pull request: the skills are found, the manifests parse, the docs build strictly.
+
+name: Checks
+
+on:
+  pull_request:
+    branches: [ "master", "development", "revision", "testing", "releasing" ]
+  push:
+    branches: [ "development" ]
+
+jobs:
+  skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.x
+      - name: manifests are valid JSON
+        run: for f in .claude-plugin/*.json gemini-extension.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
+      - name: every skill is found
+        run: |
+          expected=$(ls -d skills/*/ | wc -l)
+          found=$(npx -y skills add . --list 2>&1 | tee /dev/stderr | grep -c 'bos-')
+          [ "$found" -ge "$expected" ]
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: docs/requirements.txt
+      - run: pip install -r docs/requirements.txt
+      - name: strict build, as Read the Docs does
+        run: mkdocs build --strict -f docs/mkdocs.yml

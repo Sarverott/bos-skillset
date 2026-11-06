@@ -12,8 +12,13 @@ A new page also needs an entry in `nav:` in `mkdocs.yml`.
 | Section | Contents |
 | ------- | -------- |
 | [glossary/](glossary/README.md) | one page per element of the environment: what it is, why it exists, where it lives |
-| tutorials | [preinstall](tutorials/preinstall.md) → [installation](tutorials/installation.md) → [getting started](tutorials/GETTING_STARTED.md) → [first use](tutorials/first-use-example.md); [agent suit](tutorials/agent-suit.md); [logicflows](tutorials/logicflow-explanation.md); [committing and releasing](tutorials/committing-and-releasing.md) |
+| tutorials | [preinstall](tutorials/preinstall.md) → [installation](tutorials/installation.md) → [getting started](tutorials/GETTING_STARTED.md) → [first use](tutorials/first-use-example.md) |
+| [ideas/](ideas/README.md) | what the skillset could become: MCP tools, session brief, procedures, packaging |
 | infographics | [branch movement procedures](infographics/branch-movement-procedures.md) |
+| [devlog/](devlog/README.md) | owner dialogue, direction and checked steps |
 
-Order of truth: glossary (meaning) → the core's `src/models/` (structure) → `src/procedures/`
-here and in the core (behaviour).
+Agents keep evidence and observations in `docs/.agents/`; contributor policy
+is in the repository's `AGENTS.md`.
+
+Order of truth: glossary (meaning) → the core's models (structure) and procedures (behaviour)
+→ the skills here (what agents are told).

@@ -2,7 +2,7 @@
 # The docs are a self-contained sub-project: config, uv project, lock and Taskfile live
 # here, next to the pages. Always build from the repository root: mkdocs build -f docs/mkdocs.yml
 site_name: BOS skillset
-site_description: "The Blacksmith Organization System for AI agents: skills, plugins, MCP"
+site_description: "The Blacksmith Organization System for AI agents: skills and plugins"
 site_author: Sett Sarverott
 site_url: !ENV [READTHEDOCS_CANONICAL_URL, "http://127.0.0.1:8000/"]
 repo_url: https://github.com/Sarverott/bos-skillset
@@ -64,9 +64,6 @@ nav:
       - tutorials/installation.md
       - tutorials/GETTING_STARTED.md
       - tutorials/first-use-example.md
-      - tutorials/logicflow-explanation.md
-      - tutorials/agent-suit.md
-      - tutorials/committing-and-releasing.md
   - Glossary:
       - glossary/README.md
       - Network:
@@ -101,5 +98,20 @@ nav:
           - glossary/postroad.md
           - glossary/raven.md
           - glossary/house.md
+  - Ideas:
+      - ideas/README.md
+      - ideas/agent-suit.md
+      - ideas/procedures.md
+      - ideas/packaging.md
   - Infographics:
       - infographics/branch-movement-procedures.md
+  - Development:
+      - devlog/README.md
+      - devlog/VISION.md
+      - devlog/ROADMAP.md
+      - devlog/TODO.md
+      - devlog/BRAINSTORM.md
+      - devlog/PROPOSALS.md
+      - devlog/ORDERS.md
+      - devlog/INQUIRIES.md
+      - changelog/phase-0.md

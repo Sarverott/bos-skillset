@@ -1,12 +1,6 @@
 {
   "name": "bos",
   "version": "1.0.1",
-  "description": "The Blacksmith Organization System (BOS) for Gemini CLI: read-only MCP tools over the workshop, its craft loop and the House of Anubis, and the workshop's rules as context",
-  "mcpServers": {
-    "bos": {
-      "command": "node",
-      "args": ["${extensionPath}${/}bin${/}bos", "mcp"]
-    }
-  },
+  "description": "The Blacksmith Organization System (BOS) for Gemini CLI: the workshop's shape and rules as context",
   "contextFileName": "BOS-CONTEXT.md"
 }

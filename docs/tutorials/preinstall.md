@@ -2,15 +2,17 @@
 
 Needed:
 
-- **Node.js ≥ 22.18**
+- **an AI agent**: Claude Code, Gemini CLI, Codex, Cursor… ([installation](installation.md))
+
+For the `bos` command the skills use:
+
+- **Node.js ≥ 22** and the core (`npm install -g blacksmith-organization-system`)
 - **git**
+- **gh**: the core's `bos flow next-pr` / `automerge` open and merge pull requests
 
 Optional:
 
-- **an AI agent**: Claude Code, Gemini CLI, Codex, Cursor… ([installation](installation.md))
-- **ollama**: lets Skryba, the scribe raven, refine commit messages (`bos project describe --skryba`)
-- **gh**: the core's `bos flow next-pr` / `automerge` open and merge pull requests
-- **Task** (taskfile.dev): installed with the dev dependencies as `@go-task/cli`; runs `Taskfile.yml`
+- **Task** (taskfile.dev) and **uv**: build the docs (`task docs:build`)
 - **Obsidian**: browse `docs/` as a vault
 
 Decide where the workshop lives: `~/__WORKSHOP` by default, or

@@ -2,7 +2,7 @@
   "name": "bos",
   "displayName": "Blacksmith Organization System",
   "version": "1.0.1",
-  "description": "BOS as the agent's suit: workshop skills, /bos commands, read-only MCP tools over the workshop, its craft loop and the House of Anubis, a session brief, and the agent's work recorded in storylines",
+  "description": "Skills for working inside a BOS workshop: its areas, scopes, projects, the craft loop and the House of Anubis",
   "author": {
     "name": "Sett Sarverott",
     "email": "sett@sarverott.com",
@@ -11,6 +11,5 @@
   "homepage": "https://github.com/Sarverott/bos-skillset",
   "repository": "https://github.com/Sarverott/bos-skillset",
   "license": "MIT",
-  "keywords": ["bos", "workshop", "forge", "craft-loop", "house-of-anubis", "ravens", "storylines"],
-  "mcpServers": "./.claude-plugin/mcp.json"
+  "keywords": ["bos", "workshop", "forge", "craft-loop", "house-of-anubis", "agent-skills"]
 }

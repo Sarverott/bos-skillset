@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-# Procedures of this repository. Workshop procedures live in <workshop>/.BOS/Taskfile.yaml.
+# Checks of this repository. It holds no code: skills, manifests and docs.
 
 version: '3'
 
@@ -8,85 +8,23 @@ includes:
     taskfile: ./docs
     dir: ./docs
 
-vars:
-  BOS: node {{.ROOT_DIR}}/bin/bos
-
 tasks:
   default:
     desc: list tasks
     cmds: [task --list]
     silent: true
 
-  locate:
-    desc: active workshop and where BOS sits in it
-    cmds: ['{{.BOS}} workshop locate']
+  skills:
+    desc: every skill an agent would install from here
+    cmds: ['npx -y skills add . --list']
 
-  status:
-    desc: the whole workshop as one report with findings (read-only)
-    cmds: ['{{.BOS}} workshop status']
-
-  bootstrap:
-    desc: create missing workshop areas and descriptors (dry=true to only plan)
-    cmds: ['{{.BOS}} workshop bootstrap {{if .dry}}--dry-run{{end}}']
-
-  open:
-    desc: open the workshop
-    cmds: ['{{.BOS}} workshop open']
-
-  close:
-    desc: close the workshop (run `history -a` first to include this shell)
-    cmds: ['{{.BOS}} workshop close']
-
-  brief:
-    desc: what an agent learns at the start of a session here
-    cmds: ['{{.BOS}} agent brief']
-
-  flow:
-    desc: this project's craft loop (core)
-    cmds: ['{{.BOS}} flow explain']
-
-  build:
-    desc: bundle the suit into dist/bos-skillset.mjs (what an installed plugin runs)
-    cmds: ['node esbuild.config.mjs']
-
-  mcp:
-    desc: the MCP server on stdio (for trying it with an MCP inspector)
-    cmds: ['{{.BOS}} mcp']
-    interactive: true
-
-  hooks:install:
-    desc: link this repository's git hooks to BOS storylines
-    cmds: ['{{.BOS}} project install-hooks']
-
-  commit:
-    desc: commit with guided prompts (commitizen + commitlint rules)
-    cmds: ['npx cz']
-    interactive: true
-
-  describe:
-    desc: show the commit message BOS and Skryba would draft for what is staged
-    cmds: ['{{.BOS}} project describe']
-
-  test:
-    desc: run the test suite
-    cmds: ['npx vitest run']
-
-  test:watch:
-    desc: rerun tests on every change
-    cmds: ['npx vitest']
-    interactive: true
-
-  lint:
-    desc: lint and format check with Biome (no writes)
-    cmds: ['npx biome check .']
-
-  format:
-    desc: apply Biome formatting and safe fixes
-    cmds: ['npx biome check --write .']
+  plugin:
+    desc: validate the Claude Code plugin and marketplace
+    cmds: ['claude plugin validate .']
 
   check:
-    desc: lint, tests and the bundle, as CI runs them
+    desc: skills, plugin and a strict docs build
     cmds:
-      - npx biome check .
-      - npx vitest run
-      - node esbuild.config.mjs
+      - task: skills
+      - task: plugin
+      - task: docs:build

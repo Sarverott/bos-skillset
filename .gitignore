@@ -2,12 +2,10 @@
 *.swp
 *~
 __pycache__/
-node_modules/
 .env
+node_modules/
 
 # documentation build
 /site/
 docs/.venv/
-
-# the bundle: built by `npm run build`, committed only by the release on master
-dist/
+docs/devlog/STATE.md
