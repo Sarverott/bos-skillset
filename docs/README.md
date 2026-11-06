@@ -15,6 +15,10 @@ A new page also needs an entry in `nav:` in `mkdocs.yml`.
 | tutorials | [preinstall](tutorials/preinstall.md) → [installation](tutorials/installation.md) → [getting started](tutorials/GETTING_STARTED.md) → [first use](tutorials/first-use-example.md) |
 | [ideas/](ideas/README.md) | what the skillset could become: MCP tools, session brief, procedures, packaging |
 | infographics | [branch movement procedures](infographics/branch-movement-procedures.md) |
+| [devlog/](devlog/README.md) | owner dialogue, direction and checked steps |
+
+Agents keep evidence and observations in `docs/.agents/`; contributor policy
+is in the repository's `AGENTS.md`.
 
 Order of truth: glossary (meaning) → the core's models (structure) and procedures (behaviour)
 → the skills here (what agents are told).
