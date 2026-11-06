@@ -1,5 +1,6 @@
-# Updates arrive where work is done: the development branch.
-# No npm: the skillset has no package and no dependencies.
+# Update the source lockfile, not its generated requirements.txt export.
+# Dependabot reads this configuration from the default branch, even though
+# its update PRs target development. Keep the two copies synchronized.
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -7,13 +8,23 @@ updates:
     target-branch: development
     schedule:
       interval: weekly
-  - package-ecosystem: pip
-    directory: /
+    open-pull-requests-limit: 3
+    groups:
+      actions-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+  - package-ecosystem: uv
+    directory: /docs
     target-branch: development
     schedule:
       interval: weekly
-  - package-ecosystem: npm
-    directory: /
-    target-branch: development
-    schedule:
-      interval: weekly
+    open-pull-requests-limit: 3
+    allow:
+      - dependency-type: all
+    groups:
+      docs-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
+# Re-enable npm updates when the root package.json is a valid manifest with
+# dependencies. It is currently an empty placeholder, not an npm project.

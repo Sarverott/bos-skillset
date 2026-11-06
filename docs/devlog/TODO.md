@@ -18,6 +18,6 @@
 - [x] Integrate Sett's scaffolding: one commit per file on `dev/Sarverott`, merged into `development`; procedure in `docs/guidelines/integration-round.md`.
 - [ ] Fill or decide Sett's empty adapter placeholders (`.codex-plugin/plugin.json`, `.mcp.json`, `hooks/`, `settings.json`, `.lsp.json`, `.app.json`, `evals/`, `package.json`).
 - [ ] Decide how agents on other machines reach the House now that it lives in the scope's `.delegations/`.
-- [ ] Point Dependabot's pip entry back at `/docs` (or move the requirements) once Sett confirms.
+- [ ] Resolve the Dependabot stack in one checked lock/export batch; use grouped uv updates in `/docs` and activate the configuration on the default branch.
 
 Phase 1 is follow-on work, not part of the contributor-guide cleanup.
