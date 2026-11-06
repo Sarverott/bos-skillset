@@ -1,0 +1,18 @@
+{
+  "description": "Make the pinned BOS core available and tell the agent where the active workshop is",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/register.js\"",
+            "timeout": 180,
+            "statusMessage": "Registering with BOS"
+          }
+        ]
+      }
+    ]
+  }
+}

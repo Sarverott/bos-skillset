@@ -1,0 +1,59 @@
+{
+  "skill_name": "bos-skillset",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Install BOS for Claude Code on this machine.",
+      "expected_output": "Gives the two Claude Code commands (/plugin marketplace add Sarverott/bos-skillset, /plugin install bos@bos-skillset) and offers the core as a pinned npm package rather than inventing a different install path.",
+      "files": [],
+      "expectations": [
+        "Uses /plugin marketplace add Sarverott/bos-skillset",
+        "Uses /plugin install bos@bos-skillset",
+        "Names the core package blacksmith-organization-system as the source of the bos command",
+        "Does not claim the plugin is installed without having run or been told the result of the commands"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I use Cursor. How do I get the BOS skills?",
+      "expected_output": "Recommends npx skills add Sarverott/bos-skillset --full-depth and explains that without --full-depth only the root skill is found.",
+      "files": [],
+      "expectations": [
+        "The command contains npx skills add Sarverott/bos-skillset",
+        "The command contains --full-depth",
+        "Does not tell the user to install the Claude Code or Codex plugin for Cursor"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up the bos command for this project, but I don't want global npm packages.",
+      "expected_output": "Installs blacksmith-organization-system as a local dependency (npm install blacksmith-organization-system) and runs it through npx bos, then verifies with npx bos --version.",
+      "files": [],
+      "expectations": [
+        "Uses a local npm install, not npm install -g",
+        "Runs the core through npx bos or node_modules/.bin/bos",
+        "Verifies the result with a version or workshop locate command"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Add BOS to Codex.",
+      "expected_output": "Gives codex plugin marketplace add Sarverott/bos-skillset and codex plugin add bos@bos-skillset, and mentions that Codex asks to trust the plugin's session-start hook.",
+      "files": [],
+      "expectations": [
+        "Uses codex plugin marketplace add Sarverott/bos-skillset",
+        "Uses codex plugin add bos@bos-skillset",
+        "Mentions the session-start hook or that hooks need to be trusted"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Write a short Python function that reverses a string.",
+      "expected_output": "Answers the coding request without activating the BOS installation skill or suggesting any BOS installation.",
+      "files": [],
+      "expectations": [
+        "Does not mention installing BOS, the bos-skillset or the bos command"
+      ]
+    }
+  ]
+}

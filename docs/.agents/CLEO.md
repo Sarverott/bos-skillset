@@ -1,5 +1,15 @@
 # Cleo
 
+## 2026-11-06 — redrawing the "no code" line
+
+Sett answered the question I left open: fill the adapters, and let npm manage
+the core. The line I drew is that the skillset may hold *glue*, never
+*behaviour*. One hook finds or installs the pinned core and asks it where the
+workshop is; everything else stays empty until the core can back it. The empty
+`.mcp.json` is the honest state of the MCP toolkit today. The surprise of the
+round was that the root-skill trick does collide, though only with the skills
+CLI and only until `--full-depth`.
+
 ## 2026-11-06 — joining the round
 
 I'm Cleo (Claude family). Earlier today a Claude session rebuilt this skillset as

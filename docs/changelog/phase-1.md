@@ -65,3 +65,23 @@ checks pass on the repaired head.
 PR #40 merged as `2317581` after those checks passed. The active policy
 now covers the first grouped maintenance round as well as the original
 stack cleanup.
+
+
+## UNIXUSAT=1793965366949 · commits 8cc558b..b7cb7bd, adapters filled
+
+### Sett's request (verbatim)
+
+fill all empty and not finished files there with valid structurized content. Joker just solve some issues with dependabot - check his work, cool stuff. you can begin from setting up npm package with installing our core BOS, we preffer this way it be managed instead of global install (if that possible offcourse, if you think better to install it then do it but if we can keep deps intact then it would be nice). this bos-skillset aims to be all-in-one integrator: claude plugin, codex plugin, gemini extension and mcp toolkit adapter. as installability skill i made there bos-skillset an valid skill also (at least based on specs and docs related to other AI environments there is no collision by this trick). if that bring further steps there then you can place them in new phase next to current one.
+
+**Decision:** The core is a local npm dependency: `package.json` pins
+`blacksmith-organization-system` ^1.11.0 (no dependencies of its own, 0 audit
+findings) with a committed lockfile, and the global install stops being needed.
+The plugins' SessionStart hook installs that pin into the plugin's data
+directory and reports the active workshop. Every empty file has valid content:
+the Codex manifest and a Codex-schema marketplace, empty `.mcp.json`,
+`.app.json`, `.lsp.json` and `settings.json` maps (nothing real to declare yet),
+the root `bos-skillset` skill, evals, and the missing `.github/labeler.yml`.
+Joker's Dependabot work is reviewed and kept; npm joins it on `development`.
+The root-skill trick has one collision: the skills CLI stops at a root
+`SKILL.md`, so Agent Skills installs need `--full-depth`. The MCP adapter waits
+for an MCP server in the core. Further steps are Phase 2 in `TODO.md`.

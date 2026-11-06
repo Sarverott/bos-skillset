@@ -23,7 +23,8 @@ without the core installed, `scripts/find-workshop.sh`. Resolution order:
 
 ## Tools
 
-`bos` is the core's command (`npm install -g blacksmith-organization-system`).
+`bos` is the core's command (`npm install blacksmith-organization-system`, then
+`npx bos`; or `-g`). The BOS plugins for Claude Code and Codex install it at session start.
 If it is not installed, use this skill as knowledge and `scripts/find-workshop.sh`.
 
 | Command | Does |
