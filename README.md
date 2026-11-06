@@ -53,17 +53,19 @@ Details: [installation](docs/tutorials/installation.md).
 | ----- | --- |
 | [`bos-skillset`](SKILL.md) | the repository root: install and check BOS for an agent |
 | [`bos-workshop`](skills/bos-workshop/SKILL.md) | recognize workshops, their areas and elements; place work where it belongs |
+| [`handling-dependabot-prs`](skills/handling-dependabot-prs/SKILL.md) | review, repair and merge dependency PR batches in the owning repository; reconcile locks and reduce recurring bot noise |
 | `bos-project` `bos-scope` `bos-house` `bos-forge` | a project and its craft loop, a scope and its GRIH version, the House of Anubis, the forge |
 | `bos-devarmory` `bos-craftbook` `bos-archive` `bos-sheme` `bos-throwbox` `bos-sarcophag` `bos-exhibit` `bos-craftset` | the other areas and assets (drafts, growing) |
 
-A new skill starts from [`assets/template/SKILL.md`](assets/template/SKILL.md) and the
-element's glossary page.
+A new skill starts from [`assets/template/SKILL.md`](assets/template/SKILL.md).
+Element skills follow the glossary; workflow skills follow verified procedures
+and bundle the references an installed agent needs.
 
 ## Repository layout
 
 ```
 SKILL.md           the root skill: installing the skillset itself
-skills/            Agent Skills, one per element (the product)
+skills/            Agent Skills for elements and recurring workflows (the product)
 .claude-plugin/    Claude Code plugin + marketplace
 .codex-plugin/     Codex plugin (+ a Codex-schema marketplace, not read there yet)
 gemini-extension.json, BOS-CONTEXT.md    Gemini CLI extension and its context

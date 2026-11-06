@@ -22,9 +22,16 @@ jobs:
         run: npm ci --no-audit --no-fund && npx --no-install bos --version
       - name: every skill is found
         run: |
-          expected=$(ls -d skills/*/ | wc -l)
-          found=$(npx -y skills add . --list --full-depth 2>&1 | tee /dev/stderr | grep -c 'bos-')
-          [ "$found" -ge "$expected" ]
+          listing=$(NO_COLOR=1 npx -y skills add . --list --full-depth 2>&1)
+          printf '%s\n' "$listing"
+          for skill_dir in skills/*/; do
+            skill_name=$(basename "$skill_dir")
+            printf '%s\n' "$listing" | grep -E "[[:space:]]${skill_name}[[:space:]]*$" > /dev/null || {
+              echo "Skill was not discovered: $skill_name" >&2
+              exit 1
+            }
+          done
+          printf '%s\n' "$listing" | grep -E '[[:space:]]bos-skillset[[:space:]]*$' > /dev/null
 
   docs:
     runs-on: ubuntu-latest

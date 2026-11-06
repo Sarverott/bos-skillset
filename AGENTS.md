@@ -58,7 +58,7 @@ systems through it. Skills consume this interface rather than copying it.
 
 | Place here | Responsibility |
 | --- | --- |
-| `skills/bos-*/SKILL.md` | Portable Agent Skills: instructions and task-specific references |
+| `skills/*/SKILL.md` | Portable Agent Skills for BOS elements and recurring workflows, with task-specific references |
 | `assets/template/SKILL.md` | Starting shape for a new skill |
 | `SKILL.md` (root) | The `bos-skillset` installation skill; the repository is also one skill |
 | `.claude-plugin/` | Claude Code plugin and marketplace manifests |
@@ -224,7 +224,8 @@ Use the [Agent Skills specification](https://agentskills.io/specification).
 Start with the glossary meaning and a real task; verify the corresponding
 core capability; then write the skill and exercise its instructions.
 
-- Put each skill in `skills/bos-<element>/SKILL.md`. YAML frontmatter needs
+- Put element skills in `skills/bos-<element>/SKILL.md` and reusable workflows
+  in `skills/<workflow-name>/SKILL.md`. YAML frontmatter needs
   `name` matching its directory (lowercase letters, digits, single hyphens,
   1–64 characters) and `description` (1–1024 characters) saying what it does
   and when it should activate. Quote YAML values when punctuation requires it.
