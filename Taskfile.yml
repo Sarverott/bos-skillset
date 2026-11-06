@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 # Checks of this repository. It holds no code: skills, manifests and docs.
+# The BOS core is a pinned npm dependency (package.json), not a global install.
 
 version: '3'
 
@@ -14,9 +15,20 @@ tasks:
     cmds: [task --list]
     silent: true
 
+  setup:
+    desc: install the pinned BOS core into node_modules (npm ci)
+    cmds: ['npm ci --no-audit --no-fund']
+
+  bos:
+    desc: 'run the pinned core, e.g. task bos -- workshop locate'
+    preconditions:
+      - sh: test -x node_modules/.bin/bos
+        msg: 'the core is not installed here: run task setup'
+    cmds: ['npx --no-install bos {{.CLI_ARGS}}']
+
   skills:
-    desc: every skill an agent would install from here
-    cmds: ['npx -y skills add . --list']
+    desc: every skill an agent would install from here (the root skill and the bos-* skills)
+    cmds: ['npx -y skills add . --list --full-depth']
 
   plugin:
     desc: validate the Claude Code plugin and marketplace

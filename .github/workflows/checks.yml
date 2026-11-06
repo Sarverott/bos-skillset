@@ -17,11 +17,13 @@ jobs:
         with:
           node-version: 24.x
       - name: manifests are valid JSON
-        run: for f in .claude-plugin/*.json gemini-extension.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
+        run: for f in .claude-plugin/*.json .codex-plugin/*.json gemini-extension.json package.json .mcp.json .app.json .lsp.json settings.json hooks/hooks.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
+      - name: the pinned core installs and runs
+        run: npm ci --no-audit --no-fund && npx --no-install bos --version
       - name: every skill is found
         run: |
           expected=$(ls -d skills/*/ | wc -l)
-          found=$(npx -y skills add . --list 2>&1 | tee /dev/stderr | grep -c 'bos-')
+          found=$(npx -y skills add . --list --full-depth 2>&1 | tee /dev/stderr | grep -c 'bos-')
           [ "$found" -ge "$expected" ]
 
   docs:
