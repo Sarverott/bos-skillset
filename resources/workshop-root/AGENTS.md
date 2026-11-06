@@ -74,9 +74,9 @@ scripts and session setup) and recipes.
 - Every project carries the standard anatomy: `README.md`, `LICENSE`,
   `AGENTS.md` (+ `CLAUDE.md` importing it), `Taskfile.yml`, `src/`, `docs/`,
   `tests/`, `.github/`
-- Branches of every repository: `master` (spine of canon) → `developement`
+- Branches of every repository: `master` (spine of canon) → `development`
   (here we code) → `revision` → `testing` → `releasing` → back to `master`
-  through a pull request. Work on `developement`, never directly on `master`.
+  through a pull request. Work on `development`, never directly on `master`.
 - Git / remotes policy: scope repositories are private, kept on a self-hosted server (e.g. Gitea) with pre-public drafts; public projects on GitHub (`Sarverott`); details [`TODO`]
 - Moving work between areas (lifecycle): forge → archive → canon; details [`TODO`]
 
