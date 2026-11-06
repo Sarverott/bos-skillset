@@ -105,3 +105,13 @@ nav:
       - ideas/packaging.md
   - Infographics:
       - infographics/branch-movement-procedures.md
+  - Development:
+      - devlog/README.md
+      - devlog/VISION.md
+      - devlog/ROADMAP.md
+      - devlog/TODO.md
+      - devlog/BRAINSTORM.md
+      - devlog/PROPOSALS.md
+      - devlog/ORDERS.md
+      - devlog/INQUIRIES.md
+      - changelog/phase-0.md

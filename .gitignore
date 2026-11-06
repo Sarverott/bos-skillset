@@ -8,3 +8,4 @@ node_modules/
 # documentation build
 /site/
 docs/.venv/
+docs/devlog/STATE.md
