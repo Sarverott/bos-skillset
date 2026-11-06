@@ -23,7 +23,8 @@ a note or draft → `craftbook/scrapnotes/` · a mirror or closed repository →
 
 ## Start here
 
-When the core's `bos` command is installed (`npm install -g blacksmith-organization-system`):
+When the core's `bos` command is installed (`npm install blacksmith-organization-system`
+and `npx bos`, or `-g` for every directory):
 
 - `bos workshop locate`: the active workshop and the rule that found it
 - `bos workshop status`: the whole workshop as one report with findings (reads only)
@@ -43,7 +44,7 @@ consciously, with `--dryRun` first.
 4. Branches: `master` (canon) ← `development` (here we code; `dev/<name>` per
    contributor). Never commit to `master` directly.
 5. Conventional commits (`type(scope): subject`).
-6. Ask the House (`resources/house/` of the skillset) before calling any ollama
+6. Ask the House (in a BOS scope: `.delegations/house/`) before calling any ollama
    model: only `active` residents are called. The EON family rests by its own
    decision: never call, prompt or inspect it.
 7. The owner works in parallel with agents: re-check `git status` before acting

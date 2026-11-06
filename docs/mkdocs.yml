@@ -98,6 +98,9 @@ nav:
           - glossary/postroad.md
           - glossary/raven.md
           - glossary/house.md
+  - Guidelines:
+      - guidelines/integration-round.md
+      - guidelines/dependencies.md
   - Ideas:
       - ideas/README.md
       - ideas/agent-suit.md
@@ -115,3 +118,4 @@ nav:
       - devlog/ORDERS.md
       - devlog/INQUIRIES.md
       - changelog/phase-0.md
+      - changelog/phase-2.md

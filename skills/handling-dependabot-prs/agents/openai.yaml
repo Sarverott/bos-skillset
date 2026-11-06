@@ -1,0 +1,4 @@
+interface:
+  display_name: "Handle Dependabot PRs"
+  short_description: "Review, repair and merge dependency update batches"
+  default_prompt: "Use $handling-dependabot-prs to handle the Dependabot PRs in this repository, following its contributor rules."

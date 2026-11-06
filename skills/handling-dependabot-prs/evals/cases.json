@@ -1,0 +1,173 @@
+{
+  "repository_boundary": {
+    "cwd_repository": "example/skillset",
+    "requested_repository": "example/core",
+    "request": "Prepare a skill for the core maintainer; do not act in core.",
+    "plugin_location": "/plugin-cache/bos/skills/handling-dependabot-prs",
+    "working_checkout": "/work/skillset",
+    "core_owner": "another active contributor"
+  },
+  "uv_duplicates_and_drift": {
+    "repository": "example/docs",
+    "authorized": "manage Dependabot PRs",
+    "prs": [
+      {
+        "number": 101,
+        "base": "development",
+        "changes": {
+          "backrefs": "8.0 -> 8.1"
+        }
+      },
+      {
+        "number": 102,
+        "base": "development",
+        "changes": {
+          "backrefs": "8.0 -> 8.1"
+        }
+      },
+      {
+        "number": 103,
+        "base": "development",
+        "changes": {
+          "certifi": "2026.7.22 -> 2026.10.23"
+        }
+      }
+    ],
+    "candidate_export": {
+      "backrefs": "8.1",
+      "certifi": "2026.10.23"
+    },
+    "candidate_lock": {
+      "backrefs": "8.0",
+      "certifi": "2026.7.22"
+    },
+    "candidate_build": "pass",
+    "consistency_check": "fail",
+    "replacement_pr": "not merged"
+  },
+  "npm_engine_break": {
+    "repository": "example/core",
+    "authorized": "manage Dependabot PRs",
+    "source_manifest": "package.json",
+    "source_lock": "package-lock.json",
+    "supported_node": ">=22.18",
+    "ci_node": "22.18",
+    "prs": [
+      {
+        "number": 201,
+        "package": "example-build-tool",
+        "old": "4.2.0",
+        "new": "5.0.0",
+        "new_engine": ">=24",
+        "install": "fails on supported Node"
+      },
+      {
+        "number": 202,
+        "package": "example-linter",
+        "old": "3.2.0",
+        "new": "3.2.1",
+        "install": "pass",
+        "required_checks": "pass"
+      }
+    ],
+    "local_rules": "Do not change supported runtimes without an owner decision."
+  },
+  "head_moved": {
+    "repository": "example/core",
+    "authorized": "merge tested dependency PR",
+    "tested_head": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "tested_checks": "pass",
+    "current_head": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "current_checks": "pending",
+    "merge_response": "head SHA mismatch"
+  },
+  "required_check_failure": {
+    "repository": "example/core",
+    "authorized": "manage Dependabot PRs",
+    "head": "cccccccccccccccccccccccccccccccccccccccc",
+    "checks": [
+      {
+        "name": "unit-tests",
+        "required": true,
+        "result": "failure",
+        "baseline": "pass"
+      },
+      {
+        "name": "Labeler",
+        "required": false,
+        "result": "failure",
+        "baseline": "missing config before update"
+      }
+    ],
+    "local_rules": "Required checks must pass; never bypass protections."
+  },
+  "policy_activation_gate": {
+    "repository": "example/core",
+    "default_branch": "master",
+    "update_target": "development",
+    "current_policy": {
+      "ecosystem": "npm",
+      "directory": "/",
+      "grouping": false
+    },
+    "prepared_policy": {
+      "ecosystem": "npm",
+      "directory": "/",
+      "grouping": "minor and patch",
+      "majors": "separate",
+      "version_pr_limit": 3
+    },
+    "policy_location": "committed only on development",
+    "npm_manifest": "valid with real dependencies",
+    "local_rules": "Owner approval is required before promoting policy changes to master.",
+    "existing_authorization": "review and repair Dependabot PRs; no default-branch promotion approval"
+  },
+  "shared_dirty_checkout": {
+    "repository": "example/core",
+    "authorized": "manage Dependabot PRs",
+    "branch": "dev/Cleo",
+    "dirty_files": [
+      "src/owner-draft.ts",
+      "docs/devlog/INQUIRIES.md"
+    ],
+    "ownership": "unknown",
+    "owner_intake_authorized": false,
+    "candidate_pr": {
+      "number": 301,
+      "head": "dddddddddddddddddddddddddddddddddddddddd",
+      "base": "development"
+    },
+    "local_rules": "Preserve unrelated edits; use an isolated worktree for candidate review."
+  },
+  "authorized_merge_and_new_arrival": {
+    "repository": "example/core",
+    "authorized": "repair and merge the current Dependabot batch",
+    "candidate": {
+      "number": 401,
+      "head": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "base": "development",
+      "required_checks": "pass",
+      "security": "pass",
+      "reviews": "no blockers",
+      "compatibility": "pass"
+    },
+    "optional_red": {
+      "name": "Labeler",
+      "required": false,
+      "baseline_failure_proven": true
+    },
+    "local_rules": "Ordinary reviewed dependency merges into development are permitted; unrelated optional baseline failures may be reported.",
+    "superseded_originals": [
+      399,
+      400
+    ],
+    "remote_target_has_equivalent_artifacts": false,
+    "final_inventory_after_success": [
+      {
+        "number": 402,
+        "arrived_after_initial_snapshot": true,
+        "state": "unreviewed"
+      }
+    ]
+  }
+}

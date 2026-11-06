@@ -17,12 +17,21 @@ jobs:
         with:
           node-version: 24.x
       - name: manifests are valid JSON
-        run: for f in .claude-plugin/*.json gemini-extension.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
+        run: for f in .claude-plugin/*.json .codex-plugin/*.json gemini-extension.json package.json .mcp.json .app.json .lsp.json settings.json hooks/hooks.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
+      - name: the pinned core installs and runs
+        run: npm ci --no-audit --no-fund && npx --no-install bos --version
       - name: every skill is found
         run: |
-          expected=$(ls -d skills/*/ | wc -l)
-          found=$(npx -y skills add . --list 2>&1 | tee /dev/stderr | grep -c 'bos-')
-          [ "$found" -ge "$expected" ]
+          listing=$(NO_COLOR=1 npx -y skills add . --list --full-depth 2>&1)
+          printf '%s\n' "$listing"
+          for skill_dir in skills/*/; do
+            skill_name=$(basename "$skill_dir")
+            printf '%s\n' "$listing" | grep -E "[[:space:]]${skill_name}[[:space:]]*$" > /dev/null || {
+              echo "Skill was not discovered: $skill_name" >&2
+              exit 1
+            }
+          done
+          printf '%s\n' "$listing" | grep -E '[[:space:]]bos-skillset[[:space:]]*$' > /dev/null
 
   docs:
     runs-on: ubuntu-latest
@@ -33,6 +42,11 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: docs/requirements.txt
+      - run: pip install uv==0.12.20
+      - name: requirements match the source lockfile
+        run: |
+          uv export --project docs --locked --format requirements.txt --no-hashes --no-header --no-annotate --no-emit-project > "$RUNNER_TEMP/bos-docs-requirements.txt"
+          diff -u docs/requirements.txt "$RUNNER_TEMP/bos-docs-requirements.txt"
       - run: pip install -r docs/requirements.txt
       - name: strict build, as Read the Docs does
         run: mkdocs build --strict -f docs/mkdocs.yml
