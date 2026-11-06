@@ -3,6 +3,20 @@
 Newest findings first. Date observations, name evidence, distinguish proposals
 from decisions, and re-check facts that may drift. Sett answers in the devlog.
 
+## 2026-11-06 — Joker: first grouped update validates the guard
+
+- After activation, Dependabot opened PR #40 with three updates: backrefs
+  8.1, certifi 2026.10.23 and mkdocs-material 9.8.0. Its export named the new
+  backrefs/certifi versions but its lockfile retained the old versions.
+- `task docs:check-lock` reproduced the mismatch; the original GitHub Checks
+  run `42208366149` failed. Re-resolve the three requested versions with uv
+  and export again, then push repair `4eb7737` as a normal fast-forward to
+  the bot branch. No requirements-only edits or force pushes.
+- PR #40 merged as `2317581` after its checks passed.
+- The repaired head passes consistency, strict docs build, Python 3.12
+  installed-package compatibility, and GitHub docs/skills/security checks.
+  The new check catches a real bot-generated divergence as intended.
+
 ## 2026-11-06 — Joker: Dependabot maintenance round
 
 - Owner intake: the single uncommitted Copilot ruleset export is preserved
