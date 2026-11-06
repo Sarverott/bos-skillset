@@ -13,7 +13,7 @@ version is published by the pipeline. Nobody has to count versions.
 | `pre-commit` | [Biome](https://biomejs.dev) lints and formats the staged files (fixes go into the commit), then the tests run (`vitest`) |
 | `prepare-commit-msg` | `bos project prepare-message` drafts the message from the staged changes |
 | `commit-msg` | `commitlint` checks that the message is a conventional commit |
-| `post-commit`, `post-checkout`, `post-merge` | `bos hook` records the event in the workshop's storylines |
+| `post-commit`, `post-checkout`, `post-merge` | `bos project hook` records the event in the workshop's storylines |
 
 A plain `git commit` opens the editor with a draft such as:
 
@@ -80,7 +80,7 @@ has its own channel:
 
 | Branch | Version | npm dist-tag |
 | ------ | ------- | ------------ |
-| `developement` | `0.8.0-dev.N` | `dev` |
+| `development` | `0.8.0-dev.N` | `dev` |
 | `revision` | none (code review) | |
 | `testing` | `0.8.0-beta.N` | `beta` |
 | `releasing` | `0.8.0-rc.N` | `rc` |
@@ -89,20 +89,22 @@ has its own channel:
 The baseline is the tag **`v0.7.0`**. The old line reached 0.6.1 in its
 source and 0.4.2 on npm under the same package name. Only `master` writes
 the version into `package.json` and `CHANGELOG.md`; prereleases live in tags.
-`bos --version` and `bos workshop status` show the version of the installation.
+`bos --version` shows the version of the installation; `bos help` names the core's too.
 
 ## Releasing
 
-On every push to `developement`, `testing`, `releasing` or `master`, the
+On every push to `development`, `testing`, `releasing` or `master`, the
 **Release** workflow (`.github/workflows/publish-npm-pkg.yml`):
 
 1. runs the tests (`nodejs-ci.yml`, with `HUSKY=0`: hooks are for workstations)
-2. runs semantic-release: tag, GitHub release, npm package with provenance
-3. publishes the same version to GitHub Packages as `@sarverott/blacksmith-organization-system` (`publish-github-node-pkg.yml`)
-4. builds and pushes `ghcr.io/sarverott/blacksmith-organization-system:<version>` and `:<channel>` (`publish-docker-container.yml`)
+2. builds the bundle (`npm run build` → `dist/bos-skillset.mjs`) and runs semantic-release: tag, GitHub release,
+   npm package `bos-skillset` with provenance; on `master` it also commits the version in every manifest
+   (`.claude-plugin/*.json`, `gemini-extension.json`) and the bundle, which the plugin marketplace installs
+3. publishes the same version to GitHub Packages as `@sarverott/bos-skillset` (`publish-github-node-pkg.yml`)
 
-Steps 3 and 4 can also be run by hand for an existing tag (workflow dispatch).
+Step 3 can also be run by hand for an existing tag (workflow dispatch). Container
+images are the core's (`blacksmith-organization-system`); the suit has none.
 
 Repository settings it needs: an `NPM_TOKEN` secret (an npm automation token
-for `blacksmith-organization-system`), and Actions allowed to create tags,
+for `bos-skillset`), and Actions allowed to create tags,
 releases and packages.

@@ -13,7 +13,7 @@
 
 flowchart LR
 	A@{ shape: cyl, label: "master" }
-	B@{ shape: notch-rect, label: "developement" }
+	B@{ shape: notch-rect, label: "development" }
 	C@{ shape: notch-rect, label: "revision" }
 	D@{ shape: notch-rect, label: "testing" }
 	E@{ shape: docs, label: "releasing" }
@@ -29,7 +29,7 @@ flowchart LR
 ### minimal list of branches in every repository:
 - `master` 
 	- spine of canon
-- `developement` 
+- `development` 
 	- further changing
 - `revision` 
 	- controll of codes
@@ -45,14 +45,14 @@ flowchart LR
 - most important repo's branch that carries canonical spine of versions management
 
 ---
-### **developement**  branch
+### **development**  branch
 
 - pulled from master on opened [[workshop]] to make changes in source code
 - **HERE WE CODE**
 
 ---
 ###  **revision** branch 
-- pushed from developement changes to be checked by [[Audit Committee]] representant 
+- pushed from development changes to be checked by [[Audit Committee]] representant 
 - _[[maintainer]] or someone that receives authority from [[maintainer]], if [[maintainer]] is the author of change then after [[automated checks of integrity]] it can be self-approved_ **NOTE:** always it is healthier to give someone else your code to [[approval]] then make it solo
 
 ---
@@ -75,7 +75,7 @@ flowchart LR
 
 flowchart LR
 	A@{ shape: cyl, label: "master" }
-	B@{ shape: notch-rect, label: "developement" }
+	B@{ shape: notch-rect, label: "development" }
 	C@{ shape: notch-rect, label: "revision" }
 	D@{ shape: notch-rect, label: "testing" }
 	E@{ shape: docs, label: "releasing" }
@@ -101,7 +101,7 @@ flowchart LR
 
 flowchart TD
 	A@{ shape: cyl, label: "master" }
-	B@{ shape: notch-rect, label: "developement" }
+	B@{ shape: notch-rect, label: "development" }
 	C@{ shape: notch-rect, label: "revision" }
 	D@{ shape: notch-rect, label: "testing" }
 	E@{ shape: docs, label: "releasing" }

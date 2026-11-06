@@ -1,15 +1,14 @@
-import { BOS } from "../../main.ts";
-import { collectModels } from "./collect-models.mjs";
+import { Procedure } from "blacksmith-organization-system";
+
+import { collectElements } from "./collect-elements.mjs";
 import { composeSkills } from "./compose-skill.mjs";
-import { registerSkills } from "./register-skills.mjs";
 import { writeSkills } from "./write-skills.mjs";
 
-export const skilling = new BOS.Procedure("skilling", [], {
-  description: "draft an agent skill for every model that has none",
-})
-  .step("collect models", collectModels)
-  .step("compose skills", composeSkills)
-  .step("write missing skills", writeSkills)
-  .step("register in marketplace", registerSkills);
+// draft an agent skill for every standalone element that has none
+export const skilling = new Procedure("skilling", [
+  { name: "collect elements", run: collectElements },
+  { name: "compose skills", run: composeSkills },
+  { name: "write missing skills", run: writeSkills },
+]);
 
 export default skilling;

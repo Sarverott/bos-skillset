@@ -1,13 +1,14 @@
 # The release: after the tests, semantic-release turns the new conventional commits into
 # a version (release.config.mjs), publishes it to npm with the branch's dist-tag, and
-# creates the GitHub release. Then the same version goes to GitHub Packages and ghcr.io.
+# creates the GitHub release. Then the same version goes to GitHub Packages. On master the
+# release also commits the built bundle (dist/), which the plugin marketplace installs.
 # (A release made with GITHUB_TOKEN triggers no other workflow, so they are called here.)
 
 name: Release
 
 on:
   push:
-    branches: [ "master", "releasing", "testing", "developement" ]
+    branches: [ "master", "releasing", "testing", "development" ]
 
 concurrency:
   group: release-${{ github.ref_name }}
@@ -40,6 +41,7 @@ jobs:
           node-version: 24.x
           cache: npm
       - run: npm ci
+      - run: npm run build   # the bundle the release commits on master and publishes
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,24 +55,13 @@ jobs:
           echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
           case "${{ github.ref_name }}" in
             master) echo "channel=latest" ;; releasing) echo "channel=rc" ;;
-            testing) echo "channel=beta" ;; developement) echo "channel=dev" ;;
+            testing) echo "channel=beta" ;; development) echo "channel=dev" ;;
           esac >> "$GITHUB_OUTPUT"
 
   github-package:
     needs: release
     if: needs.release.outputs.version != ''
     uses: ./.github/workflows/publish-github-node-pkg.yml
-    with:
-      version: ${{ needs.release.outputs.version }}
-      channel: ${{ needs.release.outputs.channel }}
-    permissions:
-      contents: read
-      packages: write
-
-  docker:
-    needs: release
-    if: needs.release.outputs.version != ''
-    uses: ./.github/workflows/publish-docker-container.yml
     with:
       version: ${{ needs.release.outputs.version }}
       channel: ${{ needs.release.outputs.channel }}

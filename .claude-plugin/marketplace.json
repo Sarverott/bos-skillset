@@ -1,17 +1,20 @@
 {
   "name": "bos-skillset",
   "owner": {
-    "name": "sarverott"
+    "name": "Sett Sarverott",
+    "url": "https://github.com/Sarverott"
   },
   "metadata": {
-    "description": "Agent skills for the Blacksmith Organization System (BOS)",
-    "version": "0.1.0"
+    "description": "The Blacksmith Organization System (BOS) for AI agents: skills, commands, hooks and MCP tools",
+    "version": "1.0.1"
   },
   "plugins": [
     {
       "name": "bos",
       "source": "./",
-      "description": "Recognize BOS workshops and handle every element in them: areas, scopes, projects, sarcophags, craftsets\u2026"
+      "description": "Recognize BOS workshops and work inside them: areas, scopes, projects, the craft loop, the House of Anubis",
+      "version": "1.0.1",
+      "category": "productivity"
     }
   ]
 }

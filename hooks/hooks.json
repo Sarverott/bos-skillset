@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/src/agent-hook.mjs\" session-start",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/bin/bos\" hook session-start",
             "timeout": 20
           }
         ]
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/src/agent-hook.mjs\" bash",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/bin/bos\" hook bash",
             "async": true,
             "timeout": 20
           }
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/src/agent-hook.mjs\" session-end",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/bin/bos\" hook session-end",
             "timeout": 5
           }
         ]

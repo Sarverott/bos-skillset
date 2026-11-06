@@ -1,6 +1,7 @@
 export const recordClosing = (context) => {
-  context.event = context.workshop.storylines.record(
-    { event: "close", user: context.env.user, ttystory: context.ttystory ?? null },
+  const { host, workshop } = context;
+  context.event = workshop.system.storylines.record(
+    { event: "close", user: host.user(), ttystory: context.ttystory ?? null },
     context,
   );
 };

@@ -1,6 +1,6 @@
 # Describing Protocol
 
-Part of SMELTRY. A commit should describe its own content. This protocol reads
+A commit should describe its own content. This protocol reads
 the staged changes and drafts a conventional-commit message:
 
 - **type**: `docs`, `test`, `ci` or `build` when only that part changed; `feat`

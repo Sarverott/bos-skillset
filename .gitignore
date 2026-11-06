@@ -8,3 +8,6 @@ node_modules/
 # documentation build
 /site/
 docs/.venv/
+
+# the bundle: built by `npm run build`, committed only by the release on master
+dist/

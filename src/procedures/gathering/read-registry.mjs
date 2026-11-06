@@ -1,7 +1,7 @@
-import House from "../../models/house/class.mjs";
+import House from "../../house/class.mjs";
 
 export const readRegistry = (context) => {
-  context.house = new House(context.options.housePath);
+  context.house = context.options.housePath ? new House(context.options.housePath) : context.suit.house;
   context.children = context.house.children();
   context.orders = context.house.orders();
 };

@@ -2,14 +2,15 @@
 
 Needed:
 
-- **Node.js ≥ 22.18**: runs `src/main.ts` directly (type stripping)
+- **Node.js ≥ 22.18**
 - **git**
 
 Optional:
 
+- **an AI agent**: Claude Code, Gemini CLI, Codex, Cursor… ([installation](installation.md))
+- **ollama**: lets Skryba, the scribe raven, refine commit messages (`bos project describe --skryba`)
+- **gh**: the core's `bos flow next-pr` / `automerge` open and merge pull requests
 - **Task** (taskfile.dev): installed with the dev dependencies as `@go-task/cli`; runs `Taskfile.yml`
-- **gh**: pull requests in `bos project promote` (releasing → master)
-- **Docker**: run BOS in a container (`compose.yaml`)
 - **Obsidian**: browse `docs/` as a vault
 
 Decide where the workshop lives: `~/__WORKSHOP` by default, or

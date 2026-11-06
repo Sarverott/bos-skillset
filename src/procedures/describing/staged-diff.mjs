@@ -1,13 +1,11 @@
 // What Skryba reads: the stat of the staged changes, and a trimmed diff
 // (lock files skipped, each file and the whole capped) so it fits a small model.
-import SubprocessRunner from "../../bridge/subprocess-runner/_index.mjs";
-
 const SKIP = /(^|\/)(package-lock\.json|uv\.lock|yarn\.lock|pnpm-lock\.yaml)$/;
 
-export function stagedDiff(repo, { perFile = 1500, total = 8000 } = {}) {
-  const git = new SubprocessRunner();
-  const stat = git.try("git", ["diff", "--cached", "--stat"], { cwd: repo }) ?? "";
-  const diff = git.try("git", ["diff", "--cached", "-U2", "--no-color"], { cwd: repo }) ?? "";
+// git: a GitCli (src/bridges/git-cli.mjs)
+export function stagedDiff(git, repo, { perFile = 1500, total = 8000 } = {}) {
+  const stat = git.try(["diff", "--cached", "--stat"], repo) ?? "";
+  const diff = git.try(["diff", "--cached", "-U2", "--no-color"], repo) ?? "";
   let budget = total;
   const parts = diff
     .split(/^(?=diff --git )/m)

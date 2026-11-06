@@ -1,5 +1,5 @@
 // Every conventional commit moves the version; each station of the branch flow has a channel:
-//   developement → x.y.z-dev.N   testing → x.y.z-beta.N   releasing → x.y.z-rc.N   master → x.y.z (latest)
+//   development → x.y.z-dev.N   testing → x.y.z-beta.N   releasing → x.y.z-rc.N   master → x.y.z (latest)
 // revision (code review) releases nothing. Run by .github/workflows/publish-npm-pkg.yml.
 const canon = process.env.GITHUB_REF_NAME === "master";
 
@@ -8,7 +8,7 @@ export default {
     "master",
     { name: "releasing", prerelease: "rc", channel: "rc" },
     { name: "testing", prerelease: "beta", channel: "beta" },
-    { name: "developement", prerelease: "dev", channel: "dev" },
+    { name: "development", prerelease: "dev", channel: "dev" },
   ],
   // biome-ignore lint/suspicious/noTemplateCurlyInString: semantic-release placeholder, filled by semantic-release
   tagFormat: "v${version}",
@@ -34,7 +34,16 @@ export default {
           [
             "@semantic-release/git",
             {
-              assets: ["package.json", "package-lock.json", "CHANGELOG.md", ".claude-plugin/plugin.json"],
+              // dist/ is ignored on the coding branches: master carries the built bundle for the marketplace
+              assets: [
+                "package.json",
+                "package-lock.json",
+                "CHANGELOG.md",
+                ".claude-plugin/plugin.json",
+                ".claude-plugin/marketplace.json",
+                "gemini-extension.json",
+                "dist/bos-skillset.mjs",
+              ],
               // biome-ignore lint/suspicious/noTemplateCurlyInString: semantic-release placeholder, filled by semantic-release
               message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
             },

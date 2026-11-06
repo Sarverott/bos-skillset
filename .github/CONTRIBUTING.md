@@ -1,7 +1,7 @@
 # Contributing
 
 1. Read the [glossary](../docs/glossary/README.md): code follows meaning.
-2. Branch from `developement` (here we code). Never commit to `master`.
+2. Branch from `development` (here we code). Never commit to `master`.
 3. Keep BOS behaviour as code: procedures in `src/procedures/<name>/` (DESCRIPTION.md + one file per step), with tests in `tests/`.
 4. `npm test` (vitest) and `npm run lint` (Biome) must pass. Test against temporary workshops only.
    Commits are conventional commits; after `npm install`, husky drafts the message

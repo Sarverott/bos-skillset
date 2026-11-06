@@ -1,9 +1,9 @@
-# Updates arrive where code is written: the developement branch
+# Updates arrive where code is written: the development branch
 version: 2
 updates:
   - package-ecosystem: npm
     directory: /
-    target-branch: developement
+    target-branch: development
     schedule:
       interval: weekly
     ignore:
@@ -16,11 +16,11 @@ updates:
         versions: [">=13"]
   - package-ecosystem: github-actions
     directory: /
-    target-branch: developement
+    target-branch: development
     schedule:
       interval: weekly
   - package-ecosystem: pip
     directory: /docs
-    target-branch: developement
+    target-branch: development
     schedule:
       interval: weekly

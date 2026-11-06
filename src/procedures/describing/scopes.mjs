@@ -4,6 +4,7 @@ const BUILD = new Set([
   "package-lock.json",
   "Taskfile.yml",
   "vitest.config.mjs",
+  "esbuild.config.mjs",
   "commitlint.config.mjs",
   "release.config.mjs",
   "biome.json",
@@ -17,12 +18,13 @@ const BUILD = new Set([
 
 export function scopeOf(path) {
   const [top, part] = path.split("/");
-  if (top === "src") return ["main.ts", "cli.mjs", "index.mjs"].includes(part) ? "core" : part;
+  if (top === "src") return ["suit.mjs", "self.mjs", "cli.mjs", "index.mjs"].includes(part) ? "suit" : part;
   if (top === "tests") return "tests";
   if (top === "docs") return "docs";
   if (top === ".github") return "ci";
   if (top === "resources") return "resources";
-  if (["skills", "template", ".claude-plugin"].includes(top)) return "skills";
+  if (["skills", "template", "commands"].includes(top)) return "skills";
+  if ([".claude-plugin", "hooks", "bin", "gemini-extension.json"].includes(top)) return "plugin";
   if (top === ".husky" || BUILD.has(path)) return "build";
   return "repo";
 }

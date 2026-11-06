@@ -1,19 +1,15 @@
-import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 
-import { createIfMissing } from "../../core/basic-element.mjs";
+import { createIfMissing } from "blacksmith-organization-system";
 
 // skills/bos-<type>/SKILL.md, only where none exists yet
 export const writeSkills = (context) => {
+  const { host } = context;
   for (const skill of context.skills) {
-    const target = join(context.root, "skills", skill.name, "SKILL.md");
-    skill.created = createIfMissing(
-      target,
-      () => {
-        mkdirSync(dirname(target), { recursive: true });
-        writeFileSync(target, skill.text);
-      },
-      context,
-    );
+    const dir = join(context.root, "skills", skill.name);
+    skill.created = createIfMissing(context, join(dir, "SKILL.md"), () => {
+      host.mkdir(dir);
+      host.writeText(join(dir, "SKILL.md"), skill.text);
+    });
   }
 };

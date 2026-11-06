@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
+import { NodeHost } from "blacksmith-organization-system";
 import { test } from "vitest";
-import { readRaven } from "../src/bridge/ollama-link/ravens.mjs";
 import { askSkryba, assemble } from "../src/procedures/describing/ask-skryba.mjs";
+import { readRaven } from "../src/ravens/read.mjs";
 
 const draft = "feat(procedures): add describing\n\nA src/procedures/describing/_index.mjs\n";
 const fakeOllama = (answer, available = true) => ({
@@ -42,7 +43,7 @@ test("a bad answer is refused", () => {
 
 test("Skryba refines the draft, or leaves it when he can't help", async () => {
   const run = async (ollama) => {
-    const context = { options: { skryba: true, ollama }, message: draft, repo: process.cwd() };
+    const context = { host: new NodeHost(), options: { skryba: true, ollama }, message: draft, repo: process.cwd() };
     await askSkryba(context);
     return context;
   };
@@ -61,7 +62,7 @@ test("Skryba refines the draft, or leaves it when he can't help", async () => {
 });
 
 test("the resting EON family is never called", async () => {
-  const { default: OllamaLink } = await import("../src/bridge/ollama-link/_index.mjs");
+  const { default: OllamaLink } = await import("../src/bridges/ollama-link.mjs");
   const link = new OllamaLink({ host: "http://127.0.0.1:9" }); // unreachable on purpose: nothing may be sent
   for (const model of [
     "EON-beta___Chronus:latest",

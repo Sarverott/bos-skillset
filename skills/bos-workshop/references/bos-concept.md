@@ -3,8 +3,8 @@
 **Blacksmith Organization System (BOS)** by Sett Sarverott (2019–), MIT license.
 Part of the R-tier superproject "ANUBIS". Repositories:
 
-- old core: https://github.com/Sarverott/OLD-VERSIONS_blacksmith-organization-system (local: `forge/blacksmith-organization-system/blacksmith-organization-system`)
-- root of the new BOS (this skillset): https://github.com/Sarverott/blacksmith-organization-system (local: `forge/blacksmith-organization-system/bos-skillset`)
+- the core (TypeScript; npm `blacksmith-organization-system`): https://github.com/Sarverott/blacksmith-organization-system (local: `forge/blacksmith-organization-system/blacksmith-organization-system`); the legacy CommonJS core is its tag `legacy/v0.6.1`
+- the skillset (skills, Claude Code plugin, Gemini CLI extension, MCP; built on the core): https://github.com/Sarverott/bos-skillset (local: `forge/blacksmith-organization-system/bos-skillset`)
 
 The goal is to automate the management of a personal "forest of projects"
 across many machines, servers and publication targets, without version drift
@@ -13,7 +13,7 @@ automated"*.
 
 **Authoritative definitions:** `docs/glossary/<element>.md` in this repository
 (bos-skillset), one page per element, index in `docs/glossary/README.md`.
-Expressed as code in `src/models/<element>/class.mjs`. The old core repo holds an older copy. This file is a
+Expressed as code in the core's `src/models/<element>/class.ts`. The core keeps its own copy of the glossary. This file is a
 summary; if the two disagree, the glossary wins. The author annotates the
 glossary directly: read their changes (`git diff`) before summarizing.
 
@@ -107,13 +107,14 @@ command set; history proven via OpenTimestamps.
 ## Branches and versioning
 
 Every repository (docs/infographics/branch-movement-procedures.md): `master`
-(spine of canon) → `developement` (here we code) → `revision` (approval) →
+(spine of canon) → `development` (here we code; `dev/<name>` per contributor) → `revision` (approval) →
 `testing` (QA, nightly builds) → `releasing` (stamp, publish, announce) →
-`master` via pull request. Rejections go back to `developement`.
-The old core repo additionally has `drafting`, `moderation`, `publishing` and
-`dev/<topic>`; their place in the flow: [`TODO`]
+`master` via pull request. Rejections go to `rejection`, which returns to `development`.
+The loop is data in the core (`.github/bos.json` of a project): `bos flow explain` shows it.
+The legacy core had `drafting`, `moderation` and `publishing` too; their place in the flow: [`TODO`]
 
-Versioning is `{G}.{R}.{I}.{H}`: Generation, Reconstruction, Integration, Hooking.
+Versioning of a scope is GRIH `{G}.{R}.{I}.{H}`: Generation, Reconstruction, Integration, Hooking
+(`bos scope version` / `bump`); a project uses semver, per step Z, phase Y, milestone X.
 
 ## Related repositories
 
