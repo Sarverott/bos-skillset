@@ -24,7 +24,8 @@ A resident's own state wins over its family's.
 
 ## Where
 
-`resources/house/`: `HOUSE.md`, and one JSON file per family in `families/`:
+The scope's `.delegations/house/` (for BOS itself: `forge/blacksmith-organization-system/.delegations/house/`):
+`HOUSE.md`, `bloodlines.json`, and one JSON file per family in `children/` and `orders/` *(assumed: moved there by Sett from the skillset's `resources/house/`)*:
 
 ```json
 {
@@ -36,11 +37,11 @@ A resident's own state wins over its family's.
 ```
 
 `patterns` claim served models by name (the EON family uses them).
-`"fromRavens": true` fills a family from `resources/ravens/`.
+`"fromRavens": true` fills a family from the scope's `.delegations/ravens/`.
 
 ## Handling
 
-Before calling any ollama model, find it in `resources/house/` of the skillset:
+Before calling any ollama model, find it in the House's registry:
 only residents of a family whose `state` is `active` are called. `ollama list`
 shows what is served; read only the names, never start or prompt a resident to
 find out who it is.

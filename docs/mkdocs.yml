@@ -98,6 +98,8 @@ nav:
           - glossary/postroad.md
           - glossary/raven.md
           - glossary/house.md
+  - Guidelines:
+      - guidelines/integration-round.md
   - Ideas:
       - ideas/README.md
       - ideas/agent-suit.md

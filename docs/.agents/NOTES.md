@@ -3,6 +3,34 @@
 Newest findings first. Date observations, name evidence, distinguish proposals
 from decisions, and re-check facts that may drift. Sett answers in the devlog.
 
+## 2026-11-06 — Cleo: integration round after Sett's scaffolding
+
+- Sett's edits after Joker's guide are on `dev/Sarverott`, one commit per file,
+  merged into `development` as `f896cfc`. Procedure: `docs/guidelines/integration-round.md`.
+- The House and the ravens left the skillset: they are now at the scope level,
+  `forge/blacksmith-organization-system/.delegations/{house,ravens}/` (not in
+  any git repository). References in `AGENTS.md`, `BOS-CONTEXT.md`, the
+  `bos-house` skill and the codebase map point there now *(assumed: a move by
+  Sett, not a removal)*. An installed skill can't reach that path on another
+  machine; the House's distribution is open [TODO].
+- `resources/workshop-root/` (the guide for `__WORKSHOP/AGENTS.md`) was removed
+  with no replacement in this repository; the live `~/__WORKSHOP/AGENTS.md` stays
+  the only copy [TODO].
+- Sett's new placeholders are empty files: `.app.json`, `.lsp.json`, `.mcp.json`,
+  `settings.json`, `package.json`, `.codex-plugin/plugin.json`, `hooks/hooks.json`,
+  `hooks/register.js`, `evals/evals.json`, root `SKILL.md`. Empty JSON doesn't
+  parse: a host that reads `.mcp.json`, `hooks/hooks.json` or `settings.json` at
+  the plugin root, or `npm`/Dependabot reading `package.json`, may fail until
+  they are filled. Kept as Sett left them.
+- `.github/dependabot.yml` now watches pip at `/`, but the requirements are in
+  `docs/requirements.txt`; npm at `/` has an empty `package.json`. Dependabot may
+  report errors for both until resolved. Not changed.
+- `.codex-plugin/marketplace.json` duplicates the Claude marketplace and carries
+  the same version `1.0.1`: one more place for the version (AGENTS.md lists four).
+- A local `backup/development-premerge` branch holds two unpushed merges made
+  before `origin/development` was fetched (one with a broken message). Safe to
+  delete; kept because a hard reset was not permitted.
+
 ## 2026-11-06 — Joker: contributor-guide foundation
 
 - Inspected sibling core `blacksmith-organization-system`, package version

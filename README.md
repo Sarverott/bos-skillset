@@ -51,7 +51,7 @@ For the commands the skills use, install the core: `npm install -g blacksmith-or
 | `bos-project` `bos-scope` `bos-house` `bos-forge` | a project and its craft loop, a scope and its GRIH version, the House of Anubis, the forge |
 | `bos-devarmory` `bos-craftbook` `bos-archive` `bos-sheme` `bos-throwbox` `bos-sarcophag` `bos-exhibit` `bos-craftset` | the other areas and assets (drafts, growing) |
 
-A new skill starts from [`template/SKILL.md`](template/SKILL.md) and the
+A new skill starts from [`assets/template/SKILL.md`](assets/template/SKILL.md) and the
 element's glossary page.
 
 ## Repository layout
@@ -60,9 +60,8 @@ element's glossary page.
 skills/            Agent Skills, one per element (the product)
 .claude-plugin/    Claude Code plugin + marketplace
 gemini-extension.json, BOS-CONTEXT.md    Gemini CLI extension and its context
-resources/         data the skills point at: the House, the ravens, the workshop root's AGENTS.md
-docs/              glossary, tutorials, ideas (what the skillset could become)
-template/          a blank SKILL.md
+docs/              glossary, tutorials, ideas, devlog, guidelines
+assets/template/   a blank SKILL.md
 ```
 
 Where this is heading: [docs/ideas](docs/ideas/README.md). Rules for agents

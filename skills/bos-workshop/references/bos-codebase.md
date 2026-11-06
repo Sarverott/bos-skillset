@@ -21,5 +21,5 @@ https://github.com/Sarverott/bos-skillset · no code, no npm package. Read its `
 
 - `skills/bos-*/SKILL.md`: Agent Skills, one per element
 - `.claude-plugin/`, `gemini-extension.json` + `BOS-CONTEXT.md`: what installs them into agents
-- `resources/`: the House of Anubis (`house/`), the ravens (`ravens/`), the workshop root's guides (`workshop-root/`)
+- `assets/template/SKILL.md`: the start of a new skill; the House and the ravens now live in the scope's `.delegations/`
 - `docs/glossary/`: the authoritative definitions; `docs/ideas/`: what could be built (MCP tools, session brief, procedures), and where it belongs
