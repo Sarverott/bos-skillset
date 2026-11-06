@@ -37,16 +37,21 @@ What each element means: [docs/glossary](docs/glossary/README.md).
 | Agent | How |
 | ----- | --- |
 | **Claude Code** | `/plugin marketplace add Sarverott/bos-skillset` then `/plugin install bos@bos-skillset` |
+| **Codex** | `codex plugin marketplace add Sarverott/bos-skillset` then `codex plugin add bos@bos-skillset` |
 | **Gemini CLI** | `gemini extensions install https://github.com/Sarverott/bos-skillset` |
-| **Codex, Cursor, Copilot, …** | `npx skills add Sarverott/bos-skillset` |
+| **Cursor, Copilot, …** | `npx skills add Sarverott/bos-skillset --full-depth` |
 
-For the commands the skills use, install the core: `npm install -g blacksmith-organization-system`
-(gives `bos`). Details: [installation](docs/tutorials/installation.md).
+The commands the skills use come from the core, `blacksmith-organization-system`
+(gives `bos`). The Claude Code and Codex plugins install it into their own data
+directory at session start. Elsewhere, prefer a local install
+(`npm install blacksmith-organization-system`, then `npx bos`) over `-g`.
+Details: [installation](docs/tutorials/installation.md).
 
 ## The skills
 
 | Skill | Use |
 | ----- | --- |
+| [`bos-skillset`](SKILL.md) | the repository root: install and check BOS for an agent |
 | [`bos-workshop`](skills/bos-workshop/SKILL.md) | recognize workshops, their areas and elements; place work where it belongs |
 | `bos-project` `bos-scope` `bos-house` `bos-forge` | a project and its craft loop, a scope and its GRIH version, the House of Anubis, the forge |
 | `bos-devarmory` `bos-craftbook` `bos-archive` `bos-sheme` `bos-throwbox` `bos-sarcophag` `bos-exhibit` `bos-craftset` | the other areas and assets (drafts, growing) |
@@ -57,9 +62,15 @@ element's glossary page.
 ## Repository layout
 
 ```
+SKILL.md           the root skill: installing the skillset itself
 skills/            Agent Skills, one per element (the product)
 .claude-plugin/    Claude Code plugin + marketplace
+.codex-plugin/     Codex plugin (+ a Codex-schema marketplace, not read there yet)
 gemini-extension.json, BOS-CONTEXT.md    Gemini CLI extension and its context
+hooks/             session start: install the pinned core, report the workshop
+.mcp.json .app.json .lsp.json settings.json   adapter maps, empty until there is something to declare
+package.json       pins the core (npm ci, npx bos)
+evals/             evals of the root skill
 docs/              glossary, tutorials, ideas, devlog, guidelines
 assets/template/   a blank SKILL.md
 ```

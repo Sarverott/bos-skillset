@@ -5,7 +5,7 @@
 version: '3'
 
 vars:
-  MKDOCS: uv run --project {{.TASKFILE_DIR}} mkdocs
+  MKDOCS: uv run --locked --project {{.TASKFILE_DIR}} mkdocs
 
 tasks:
   default:
@@ -28,4 +28,15 @@ tasks:
     dir: '{{.TASKFILE_DIR}}'
     cmds:
       - uv lock
-      - uv export --no-hashes --no-header --no-annotate --no-emit-project -o requirements.txt
+      - uv export --locked --no-hashes --no-header --no-annotate --no-emit-project -o requirements.txt
+
+  check-lock:
+    desc: verify requirements.txt is the exact export of uv.lock without modifying either file
+    dir: '{{.TASKFILE_DIR}}'
+    cmds:
+      - |
+        set -eu
+        exported_file=$(mktemp)
+        trap 'rm -f "$exported_file"' EXIT
+        uv export --locked --quiet --format requirements.txt --no-hashes --no-header --no-annotate --no-emit-project > "$exported_file"
+        diff -u requirements.txt "$exported_file"

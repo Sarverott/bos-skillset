@@ -60,8 +60,14 @@ systems through it. Skills consume this interface rather than copying it.
 | --- | --- |
 | `skills/bos-*/SKILL.md` | Portable Agent Skills: instructions and task-specific references |
 | `assets/template/SKILL.md` | Starting shape for a new skill |
+| `SKILL.md` (root) | The `bos-skillset` installation skill; the repository is also one skill |
 | `.claude-plugin/` | Claude Code plugin and marketplace manifests |
+| `.codex-plugin/` | Codex plugin manifest; a Codex-schema marketplace waiting for its place |
 | `gemini-extension.json`, `BOS-CONTEXT.md` | Gemini extension and shared user context |
+| `hooks/hooks.json`, `hooks/register.js` | SessionStart hook (Claude Code, Codex): install the pinned core, report the workshop |
+| `.mcp.json`, `.app.json`, `.lsp.json`, `settings.json` | Adapter maps, deliberately empty until there is something real to declare |
+| `package.json`, `package-lock.json` | Private tooling manifest pinning the core |
+| `evals/evals.json` | skill-creator evals of the root skill |
 | `CLAUDE.md`, `GEMINI.md` | Contributor entrypoints importing this guide |
 | `docs/guidelines/` | Recurring procedures, such as an [integration round](docs/guidelines/integration-round.md) |
 | `docs/glossary/` | Meaning of BOS elements; read Sett's annotations first |
@@ -142,8 +148,10 @@ advance the remaining stations by reviewed pull requests. Bring the released
 state back into `development` before the next round. Do not rewrite shared
 history or force-push to make the graph fit a diagram.
 
-**What runs here today:** only the checks workflow is installed. There is no
-local `.github/bos.json`, commit-version hook or automatic release pipeline.
+**What runs here today:** the checks workflow validates dependencies, skills
+and docs. The default branch also carries repository triage workflows
+(greetings, labels, stale issues and issue summaries). There is no local
+`.github/bos.json`, commit-version hook or automatic release pipeline.
 The core's default loop can explain directions; it does not prove that GitHub
 will promote branches. In the core repository, the current release routine
 uses the shorter `revision → master` route; do not silently apply that exception
@@ -169,9 +177,10 @@ The core computes these scales. A scope's version lives in
 `<scope>/.bos/scope.json`; branch policies live in `.github/bos.json` when
 configured. Checking off a phase does not automatically run a bump.
 
-Here one release version occurs in four places: `plugin.json`, marketplace
-`metadata.version`, marketplace `plugins[].version`, and
-`gemini-extension.json`. Update them together for a release. Do not copy the
+Here one release version occurs in seven places: `.claude-plugin/plugin.json`,
+its marketplace `metadata.version` and `plugins[].version`,
+`gemini-extension.json`, `.codex-plugin/plugin.json`, `package.json` (with
+`package-lock.json`), and `metadata.version` in the root `SKILL.md`. Update them together for a release. Do not copy the
 core's package-only bump routine and claim it synchronizes plugin manifests.
 
 ## Devlog and the AI enclave
@@ -244,12 +253,15 @@ The existing entrypoints are:
 | Command | Purpose |
 | --- | --- |
 | `task --list` | Discover public tasks |
-| `task skills` | `npx -y skills add . --list`; all element skills must be found |
+| `task setup` | `npm ci`: install the pinned core into `node_modules` |
+| `task bos -- <args>` | Run the pinned core (`npx --no-install bos`) |
+| `task skills` | `npx -y skills add . --list --full-depth`; the root skill and all element skills must be found |
 | `task plugin` | `claude plugin validate .` |
 | `task docs:serve` | MkDocs preview |
 | `task docs:build` | Strict documentation build |
 | `task docs:lock` | Refresh the docs uv lock and exported requirements |
-| `task check` | Skill discovery, plugin validation, strict docs build |
+| `task docs:check-lock` | Verify that exported requirements match the source lockfile |
+| `task check` | Lock/export consistency, skill discovery, plugin validation, strict docs build |
 
 Use schema `version: '3'`, two spaces, public `desc:` entries, colon namespaces
 and small included Taskfiles. Keep procedures visible through Task rather than
@@ -261,10 +273,14 @@ inputs, and distinguish `preconditions` (may run) from `status` (already done).
 Consult the [Task schema](https://taskfile.dev/docs/reference/schema) for the
 installed version; retain links instead of committing printed manuals.
 
-**Current dependency boundary:** there is no `package.json` here. The core is
-installed separately; docs use `docs/pyproject.toml`, `uv.lock` and the exported
-`requirements.txt`. A skill install copies instructions; it does not imply
-`npm install` or make `bos` available.
+**Current dependency boundary:** root `package.json` is a private tooling
+manifest whose one dependency is the core (`blacksmith-organization-system`
+^1.11.0, which itself has none); `package-lock.json` pins it. `task setup`
+(`npm ci`) installs it locally, and a global install is no longer needed here.
+Docs use `docs/pyproject.toml`, `uv.lock` and the exported
+`requirements.txt`. A plain skill install copies instructions; it does not
+imply `npm install` or make `bos` available. The plugins' SessionStart hook
+installs the pinned core into the plugin's data directory instead.
 
 For npm adoption, prefer a private tooling manifest and committed lockfile,
 with the core and required developer tools as explicit dependencies; use
@@ -275,7 +291,14 @@ a sibling's unreleased feature is not an installed capability. Declare any
 runtime dependency of a future executable adapter as a runtime dependency,
 and verify how each plugin host obtains it. Do not restore the removed
 bundled application or assume plugin hosts run package installation.
-This integration remains work in the devlog, not an implemented setup task.
+`hooks/register.js` is the one place that installs for a plugin host; keep it
+thin glue, and move any BOS behaviour it grows into the core.
+
+For update batches, follow [dependency maintenance](docs/guidelines/dependencies.md).
+Dependabot tracks the docs' uv lockfile and groups routine updates; requirements
+are exported from that resolution. npm updates of the root manifest are
+configured on `development`. Activate configuration changes on the default
+branch as well; Dependabot reads the former.
 
 ## Core tools worth harvesting
 

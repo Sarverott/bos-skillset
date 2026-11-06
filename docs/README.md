@@ -13,7 +13,7 @@ A new page also needs an entry in `nav:` in `mkdocs.yml`.
 | ------- | -------- |
 | [glossary/](glossary/README.md) | one page per element of the environment: what it is, why it exists, where it lives |
 | tutorials | [preinstall](tutorials/preinstall.md) → [installation](tutorials/installation.md) → [getting started](tutorials/GETTING_STARTED.md) → [first use](tutorials/first-use-example.md) |
-| guidelines | [integration round](guidelines/integration-round.md): committing Sett's edits and merging every `dev/*` into `development` |
+| guidelines | [integration round](guidelines/integration-round.md), [dependency maintenance](guidelines/dependencies.md) |
 | [ideas/](ideas/README.md) | what the skillset could become: MCP tools, session brief, procedures, packaging |
 | infographics | [branch movement procedures](infographics/branch-movement-procedures.md) |
 | [devlog/](devlog/README.md) | owner dialogue, direction and checked steps |
