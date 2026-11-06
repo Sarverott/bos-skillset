@@ -142,8 +142,10 @@ advance the remaining stations by reviewed pull requests. Bring the released
 state back into `development` before the next round. Do not rewrite shared
 history or force-push to make the graph fit a diagram.
 
-**What runs here today:** only the checks workflow is installed. There is no
-local `.github/bos.json`, commit-version hook or automatic release pipeline.
+**What runs here today:** the checks workflow validates dependencies, skills
+and docs. The default branch also carries repository triage workflows
+(greetings, labels, stale issues and issue summaries). There is no local
+`.github/bos.json`, commit-version hook or automatic release pipeline.
 The core's default loop can explain directions; it does not prove that GitHub
 will promote branches. In the core repository, the current release routine
 uses the shorter `revision → master` route; do not silently apply that exception
