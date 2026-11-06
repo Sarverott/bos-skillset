@@ -1,2 +1,0 @@
-# recorded in the workshop's storylines (procedures/hooking); never blocks git
-node bin/bos project hook post-commit || true

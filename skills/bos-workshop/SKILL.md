@@ -13,31 +13,26 @@ standard working area and default root of code crafting.
 - **Per user:** `~/__WORKSHOP`
 - **Per partition:** `/media/**/__WORKSHOP` (any mounted partition)
 
-To find the active workshop, run `bos workshop locate` (MCP: `workshop_locate`);
-without Node, `scripts/find-workshop.sh`. Resolution order:
+To find the active workshop, run `bos workshop locate`;
+without the core installed, `scripts/find-workshop.sh`. Resolution order:
 
 1. `--workshop=PATH` option
-2. `$BOS_WORKSHOP` (or `$WORKSHOP_ROOT`) environment variable
+2. `$BOS_WORKSHOP` environment variable
 3. Nearest ancestor of the current directory named `__WORKSHOP`
 4. `~/__WORKSHOP`
 
 ## Tools
 
-`bos` is on PATH while the Claude Code plugin is enabled (elsewhere: `npx bos-skillset`);
-the read-only ones are also MCP tools of the `bos` server (`workshop_status`, …).
+`bos` is the core's command (`npm install -g blacksmith-organization-system`).
+If it is not installed, use this skill as knowledge and `scripts/find-workshop.sh`.
 
 | Command | Does |
 | ------- | ---- |
-| `bos agent brief` | the workshop, where you are in it, who must never be called, the rules |
 | `bos workshop status [--all]` | the whole workshop as one report with findings (reads only) |
-| `bos workshop glossary [term]` | the definition of any element |
 | `bos workshop bootstrap --dryRun` | what is missing; without `--dryRun` it creates it (never overwrites) |
-| `bos workshop open` / `close` | open: bootstrap + agents' guides + a record; close: shell history kept as a ttystory |
 | `bos workshop watch` | changes as events, until Ctrl+C |
+| `bos flow explain` | the project's craft loop |
 | `bos help` | every tool |
-
-Slash commands of the plugin: `/bos:status`, `/bos:open`, `/bos:close`, `/bos:glossary`,
-`/bos:commit`, `/bos:flow`, `/bos:house`.
 
 ## Standard areas
 
@@ -56,7 +51,7 @@ a note or draft → `craftbook/scrapnotes/`; a mirror or closed repo → `archiv
 graphics, CAD, photos or templates for a scope → a sheme inside that scope.
 
 - What BOS is, the full tree and element types: [references/bos-concept.md](references/bos-concept.md)
-- The core and the skillset, how they are built: [references/bos-codebase.md](references/bos-codebase.md)
+- The core and the skillset, what each holds: [references/bos-codebase.md](references/bos-codebase.md)
 - One page per element (workshop, forge, scope, sarcophag, …): `docs/glossary/` in this repository (authoritative)
 
 ## Rules

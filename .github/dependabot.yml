@@ -1,19 +1,7 @@
-# Updates arrive where code is written: the development branch
+# Updates arrive where work is done: the development branch.
+# No npm: the skillset has no package and no dependencies.
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /
-    target-branch: development
-    schedule:
-      interval: weekly
-    ignore:
-      # v10 needs conventional-changelog-writer 9+, but semantic-release's notes generator
-      # still ships writer 8: release notes would fail. Lift when semantic-release updates.
-      - dependency-name: conventional-changelog-conventionalcommits
-        versions: [">=10"]
-      # @commitlint/cz-commitlint (npm run commit) accepts inquirer 9-12 only
-      - dependency-name: inquirer
-        versions: [">=13"]
   - package-ecosystem: github-actions
     directory: /
     target-branch: development

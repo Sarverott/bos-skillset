@@ -85,12 +85,9 @@ scripts and session setup) and recipes.
 BOS lives in the forge like any project, in the scope
 `forge/blacksmith-organization-system/`:
 
-- `blacksmith-organization-system/`: the core (https://github.com/Sarverott/blacksmith-organization-system,
-  npm `blacksmith-organization-system`): the workshop as code
-- `bos-skillset/`: skills, the Claude Code plugin, the Gemini CLI extension and the MCP server for AI agents
-  (https://github.com/Sarverott/bos-skillset, npm `bos-skillset`), built on the core.
-  This file is deployed from its `resources/workshop-root/` by `bos workshop open`.
-
-- `bos workshop status` shows the whole workshop and its findings; `bos workshop open` / `bos workshop close` run the procedures; `bos help` lists every tool
-- definition of every element, one page each: `bos-skillset/docs/glossary/` (`bos workshop glossary <term>`)
-- agent skills: `bos-skillset/skills/` (start with `bos-workshop`)
+- the core, `blacksmith-organization-system` (https://github.com/Sarverott/blacksmith-organization-system):
+  the `bos` command; `bos workshop status` shows the workshop tree and what is missing,
+  `bos workshop bootstrap` creates it
+- the skillset, `bos-skillset` (https://github.com/Sarverott/bos-skillset): agent skills
+  (`skills/bos-workshop/`), the definition of every element (`docs/glossary/`) and this file
+  (`resources/workshop-root/`)

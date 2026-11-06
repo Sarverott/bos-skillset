@@ -4,7 +4,7 @@
 Part of the R-tier superproject "ANUBIS". Repositories:
 
 - the core (TypeScript; npm `blacksmith-organization-system`): https://github.com/Sarverott/blacksmith-organization-system (local: `forge/blacksmith-organization-system/blacksmith-organization-system`); the legacy CommonJS core is its tag `legacy/v0.6.1`
-- the skillset (skills, Claude Code plugin, Gemini CLI extension, MCP; built on the core): https://github.com/Sarverott/bos-skillset (local: `forge/blacksmith-organization-system/bos-skillset`)
+- the skillset (Agent Skills, the Claude Code plugin and Gemini CLI extension that install them; no code): https://github.com/Sarverott/bos-skillset (local: `forge/blacksmith-organization-system/bos-skillset`)
 
 The goal is to automate the management of a personal "forest of projects"
 across many machines, servers and publication targets, without version drift
@@ -53,15 +53,14 @@ or scrapbook instead of craftbook.
 Views (dashboards over CLI, web, mobile, Chrome extension, Electron, OpenAPI,
 MCP, with one shared handler class) has no settled location yet.
 
-### Modes of work (`.BOS/workshop.json` → "mode"; `bos workshop mode`)
+### Modes of work (`.BOS/workshop.json` → "mode")
 
 1 ALMANAC: emergency (sinking) · 2 CONFORM: establish, migrate, clean, verify,
 sync workshops · 3 SMELTRY: code, development, publishing changes ·
 4 COMMANDORATE: rules, privileges, roles, mode switching · 5 PROVISION:
 presenting what a source of truth (e.g. GitHub) delivers. Defaults for a new
-workshop: role `forging-point`, mode `conform` (`resources/workshop.default.json`;
-null = not set → default). Commands declare
-their mode in `index.json`; `bos help` groups them. Glossary: mode.md.
+workshop: role `forging-point`, mode `conform` (null = not set → default).
+No command handles modes yet [`TODO`]. Glossary: mode.md.
 
 ### 3. Elements
 
