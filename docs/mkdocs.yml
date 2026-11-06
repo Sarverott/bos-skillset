@@ -100,6 +100,7 @@ nav:
           - glossary/house.md
   - Guidelines:
       - guidelines/integration-round.md
+      - guidelines/dependencies.md
   - Ideas:
       - ideas/README.md
       - ideas/agent-suit.md
