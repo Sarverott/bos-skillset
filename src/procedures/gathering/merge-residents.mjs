@@ -1,4 +1,4 @@
-import { groupOf, sameModel } from "../../models/house/groups.mjs";
+import { groupOf, sameModel } from "../../house/groups.mjs";
 
 // children and orders with presence, bloodline of each served model, and bloodlines grouped by releaser
 export const mergeResidents = (context) => {

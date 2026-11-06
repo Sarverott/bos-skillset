@@ -1,4 +1,4 @@
-# The released version on GitHub Packages, as @sarverott/blacksmith-organization-system
+# The released version on GitHub Packages, as @sarverott/bos-skillset
 # (that registry needs a scope). Called by the release, or run by hand for a tag.
 
 name: Publish to GitHub Packages
@@ -31,9 +31,10 @@ jobs:
           node-version: 24.x
           registry-url: https://npm.pkg.github.com
           scope: "@sarverott"
+      - run: npm ci   # esbuild, for the bundle prepack builds
       # only this job publishes to GitHub: the scoped name, the GitHub registry, no npm provenance
       - run: |
-          npm pkg set name=@sarverott/blacksmith-organization-system version=${{ inputs.version }}
+          npm pkg set name=@sarverott/bos-skillset version=${{ inputs.version }}
           npm pkg delete publishConfig.provenance publishConfig.registry
       - run: npm publish --tag ${{ inputs.channel }} --registry https://npm.pkg.github.com
         env:

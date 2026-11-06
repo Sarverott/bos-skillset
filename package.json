@@ -1,34 +1,31 @@
 {
-  "name": "blacksmith-organization-system",
+  "name": "bos-skillset",
   "version": "1.0.1",
-  "description": "set of tools and skillsets for crafting, forging, archivizing and armoring technomancer's digital workshops",
+  "description": "BOS as skills and plugins for AI agents: Claude Code plugin, Agent Skills, Gemini CLI extension and an MCP server over the Blacksmith Organization System core",
   "keywords": [
-    "BOS",
-    "blacksmith",
-    "organization",
-    "system",
-    "npm",
-    "js",
-    "environment",
-    "smelt",
-    "craft",
-    "independent"
+    "bos",
+    "blacksmith-organization-system",
+    "agent-skills",
+    "claude-code-plugin",
+    "gemini-cli-extension",
+    "mcp",
+    "workshop",
+    "ai-agents"
   ],
-  "homepage": "https://github.com/Sarverott/blacksmith-organization-system#readme",
+  "homepage": "https://github.com/Sarverott/bos-skillset#readme",
   "bugs": {
-    "url": "https://github.com/Sarverott/blacksmith-organization-system/issues"
+    "url": "https://github.com/Sarverott/bos-skillset/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sarverott/blacksmith-organization-system.git"
+    "url": "git+https://github.com/Sarverott/bos-skillset.git"
   },
   "license": "MIT",
   "author": "Sett Sarverott A.A.B.",
   "type": "module",
   "main": "src/index.mjs",
   "bin": {
-    "bos": "src/cli.mjs",
-    "bos-mcp": "src/mcp.mjs"
+    "bos-skillset": "bin/bos"
   },
   "exports": {
     ".": "./src/index.mjs",
@@ -37,10 +34,16 @@
   "files": [
     ".claude-plugin",
     "AGENTS.md",
+    "BOS-CONTEXT.md",
     "CLAUDE.md",
+    "GEMINI.md",
     "LICENSE",
     "README.md",
     "bin",
+    "commands",
+    "dist",
+    "docs/glossary",
+    "gemini-extension.json",
     "hooks",
     "resources",
     "skills",
@@ -54,9 +57,11 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "node src/cli.mjs workshop status",
+    "start": "node bin/bos workshop status",
+    "build": "node esbuild.config.mjs",
+    "prepack": "npm run build",
     "test": "vitest run",
-    "bos": "node src/cli.mjs",
+    "bos": "node bin/bos",
     "prepare": "husky",
     "commit": "cz",
     "lint": "biome check .",
@@ -65,35 +70,20 @@
   "publishConfig": {
     "access": "public",
     "provenance": true,
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.31.0",
-    "dockerode": "^5.0.1",
-    "isomorphic-git": "^1.42.4",
-    "octokit": "^5.0.5",
-    "ollama": "^0.6.4",
+    "blacksmith-organization-system": "^1.5.1",
+
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
-    "@commitlint/cli": "^21.2.3",
-    "@commitlint/config-conventional": "^21.2.3",
-    "@commitlint/cz-commitlint": "^21.2.3",
-    "@go-task/cli": "^3.53.1",
-    "@semantic-release/changelog": "^7.0.0",
-    "@semantic-release/git": "^11.0.1",
+    "@go-task/cli": "^3.45.4",
     "commitizen": "^4.3.2",
-    "conventional-changelog-conventionalcommits": "^9.3.1",
     "husky": "^9.1.7",
-    "inquirer": "^12.11.1",
-    "semantic-release": "^25.0.9",
     "skills": "^1.7.0",
     "vitest": "^5.0.2"
-  },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
-    }
   }
 }

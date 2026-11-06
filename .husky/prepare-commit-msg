@@ -1,2 +1,2 @@
 # BOS drafts the message from the staged changes (procedures/describing)
-node src/cli.mjs project prepare-message "$1" "$2"
+node bin/bos project prepare-message "$1" "$2"

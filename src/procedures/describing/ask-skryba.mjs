@@ -1,8 +1,8 @@
 // Skryba, the scribe raven (resources/ravens/skryba.md), rewrites the draft's header
 // and adds a short body. He only proposes: the file list stays, and without ollama,
 // or with a bad answer, the deterministic draft is used as it is.
-import OllamaLink from "../../bridge/ollama-link/_index.mjs";
-import SubprocessRunner from "../../bridge/subprocess-runner/_index.mjs";
+import GitCli from "../../bridges/git-cli.mjs";
+import OllamaLink from "../../bridges/ollama-link.mjs";
 import { stagedDiff } from "./staged-diff.mjs";
 
 export const TYPES = ["feat", "fix", "docs", "style", "refactor", "perf", "test", "build", "ci", "chore", "revert"];
@@ -48,15 +48,16 @@ export function assemble(answer, draft, signature) {
 export const askSkryba = async (context) => {
   const wanted = context.options.skryba ?? process.env.BOS_SKRYBA !== "0";
   if (!wanted || !context.message) return;
-  const ollama = context.options.ollama ?? new OllamaLink();
+  const ollama = context.options.ollama ?? new OllamaLink({ house: context.suit?.house });
   const raven = ollama.raven("skryba");
   const model = process.env.BOS_SKRYBA_MODEL ?? raven.model;
   if (!(await ollama.available(model))) {
     context.skryba = { used: false, reason: `ollama or model ${model} not available` };
     return;
   }
-  const { stat, diff } = stagedDiff(context.repo);
-  const recent = new SubprocessRunner().try("git", ["log", "-8", "--format=%s"], { cwd: context.repo }) ?? "";
+  const git = new GitCli(context.host);
+  const { stat, diff } = stagedDiff(git, context.repo);
+  const recent = git.try(["log", "-8", "--format=%s"], context.repo) ?? "";
   const [, type, scope] = context.message.match(/^(\w+)(?:\(([^)]*)\))?:/) ?? [];
   const prompt = [
     `Hint from the file paths: type "${type}", scope "${scope ?? ""}". Keep them unless the diff clearly shows otherwise.`,

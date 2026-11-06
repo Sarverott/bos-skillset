@@ -1,81 +1,84 @@
-# AGENTS.md: blacksmith-organization-system
+# AGENTS.md: bos-skillset
 
 Instructions for AI agents working **on this repository**. For working
 anywhere in a workshop, see `resources/workshop-root/AGENTS.md` (deployed to
-every workshop root as `__WORKSHOP/AGENTS.md`).
+every workshop root as `__WORKSHOP/AGENTS.md`); for what agents *using* the
+suit get, see `BOS-CONTEXT.md`.
 
 ## Where this project sits
 
-This is the new core of the Blacksmith Organization System (BOS). It is itself
-a BOS project, so its path tells its place in the machine:
+The skillset is the agents' suit of the Blacksmith Organization System (BOS):
+skills, the Claude Code plugin, the Gemini CLI extension and the MCP server.
+It is built on the core and is itself a BOS project, so its path tells its
+place in the machine:
 
 ```
 ~/__WORKSHOP/                              workshop (root of crafting on this host)
 └── forge/                                 active work
     └── blacksmith-organization-system/    scope (family of BOS repositories)
-        ├── bos-skillset/                  ← this project (github: Sarverott/blacksmith-organization-system)
-        └── blacksmith-organization-system/  the old core (github: Sarverott/OLD-VERSIONS_blacksmith-organization-system)
+        ├── blacksmith-organization-system/  the core (github + npm: blacksmith-organization-system)
+        └── bos-skillset/                  ← this project (github: Sarverott/bos-skillset, npm: bos-skillset)
 ```
 
-`node src/cli.mjs locate` prints this place as BOS computes it.
+`node bin/bos agent brief` prints this place as BOS computes it.
+
+## The core and the suit
+
+The workshop itself (models, bootstrapping, inspecting, watching, scopes and
+their GRIH versions, the craft loop, devlog) is the **core**, the npm package
+`blacksmith-organization-system`, imported as a dependency. It is never
+copied here. The suit adds only what agents need on top of it.
+
+- Need a new behaviour of the workshop? It belongs in the core. Don't edit the
+  core's repository from here: leave an entry in
+  `~/__WORKSHOP/forge/NOTES-for-repositories.md`.
+- Every part imports the core by its name: `import { BOS, tool } from "blacksmith-organization-system"`.
+- The core's tool format is the suit's: `tool({ model, name, info, args, readOnly, run(suit, input, io), render })`.
 
 ## Meaning before code
 
 `docs/glossary/` defines every element (workshop, forge, scope, sarcophag…),
 one page each. The author annotates it directly; read their changes before
-changing code. `src/models/<element>/class.mjs` is the glossary expressed as classes:
-keep the two consistent, and write the page first when adding an element.
+changing code. The glossary as classes lives in the core; a skill
+(`skills/bos-<type>/`) is the glossary for agents: keep the three consistent,
+and write the page first when adding an element.
 
 ## Architecture
 
 ```
 src/
-├── main.ts         spine: class BOS, binds the core and loads every part lazily
-├── core/           skeleton logic: basic-element/-model/-submodule, -procedure, -controll, -view,
-│                   -bridge, toolkit (the one tool format), self
-├── bridge/         outside systems shaped into plain methods, one directory each
-├── models/         actors: the physical assets of the workshop, one directory each;
-│                   organs hang on their owner as models/<owner>/hang.<name>.mjs;
-│                   a model's tools live next to it: models/<model>/toolkit.mjs
-├── procedures/     steps that close routed routines: DESCRIPTION.md + one file per step
-├── controllers/    remotes: execution (main process, tool registry), workshop, house, repository
-├── views/          how BOS presents itself: text, json, help, repl, MCP, agent brief
-├── cli.mjs         `bos`: parse, load, dispatch, print
+├── suit.mjs        spine: class Suit extends the core's BOS, adds the House
+├── self.mjs        where the suit lives (ROOT, resources, glossary, skills, bin/bos)
+├── tools/          the suit's tools, one file per model; _index.mjs = core tools + suit tools
+├── mcp/            the MCP server, generated from the read-only, non-streaming tools
+├── agent/          Claude Code hooks (bos hook <event>): brief, place, records in storylines
+├── procedures/     steps that close routines: DESCRIPTION.md + one file per step + _index.mjs
+├── house/          the House of Anubis: children, orders, bloodlines (resources/house/)
+├── ravens/         the ravens (resources/ravens/): Skryba, the scribe
+├── bridges/        outside systems: ollama-link (ollama), git-cli (git through the core's Host.run)
+├── views/          text for people: help, house, skills, colors
+├── cli.mjs         bos <model> <tool> · bos mcp · bos hook <event>; the bundle's entry
 └── index.mjs       library entry
 ```
 
-| Part | Role | Extends |
-| ---- | ---- | ------- |
-| core + `main.ts` | the spine: execution order and the mechanics everything shares | |
-| bridges | one handler per outside system: `docker-host` (dockerode), `github-api` (octokit), `git-client` (isomorphic-git; local repos and Gitea remotes), `gitea-api` (fetch), `ollama-link` (ollama; speaks for the ravens), `subprocess-runner`, … | `BOS.Bridge` |
-| models | standalone assets of `docs/glossary/` (workshop, forge, scope, project, sarcophag…), built from a path | `BOS.Model` |
-| submodules | organs that exist only inside their owner (`.BOS` internals, `storylines/logs`, `craftbook/scrapnotes`), built from the owner and reached as properties: `workshop.storylines.logs` | `BOS.Submodule` |
-| procedures | locating → loading → bootstrapping / inspecting / opening / closing / sinking / hooking / promoting; skilling | `BOS.Procedure` |
-| tools | `models/<model>/toolkit.mjs`: `{ name, info, mode, input (zod), positional, readOnly, run, render }`, called as `bos <model> <tool>`; the same entry is the CLI call, the MCP tool (read-only ones only), the help, and (next) the OpenAPI operation and the skill | `core/toolkit.mjs` |
-| controllers | remotes: `bos.execution` gathers every tool, validates input and routes calls; `bos.workshop`, `bos.house`, `bos.repository` hold the flows the tools run | `BOS.Controll` |
-| views | status tree, help, House, promotion, inventory, repl, MCP server (`views/mcp`), agent brief (`views/agent`); colors off for pipes and `NO_COLOR` | `BOS.View` |
+| Part | Role |
+| ---- | ---- |
+| `skills/` | Agent Skills (open SKILL.md format), one per element; installed by every agent |
+| `commands/` | Claude Code slash commands (`/bos:<name>`), thin: they run `bos` |
+| `hooks/hooks.json` | Claude Code hooks → `bin/bos hook <event>` |
+| `.claude-plugin/` | plugin manifest, marketplace, MCP config |
+| `gemini-extension.json` + `BOS-CONTEXT.md` | the Gemini CLI extension and the context it loads |
+| `bin/bos` | what everything runs: `dist/bos-skillset.mjs` when built, `src/cli.mjs` otherwise |
+| `esbuild.config.mjs` | bundles `src/cli.mjs` with every dependency into `dist/bos-skillset.mjs` |
 
-Models and submodules share one anatomy (`core/basic-element.mjs`: dirname,
-descriptors, children, ensure, inspect, seal, verify). To reshape an organ
-freely, change `extends BOS.Submodule` to `extends BOS.Model`, edit it, then
-roll it back: nothing else in the file changes.
-
-BOS is also a Claude Code plugin, the agent's suit (`.claude-plugin/plugin.json`,
-`hooks/hooks.json`, `bin/bos`, MCP via `src/mcp.mjs`): see
-`docs/tutorials/agent-suit.md`.
-
-Every model can grow an agent skill: `bos project skills` drafts
-`skills/bos-<type>/SKILL.md` from the glossary page and the model, for models
-that have none. Drafts are never overwritten; grow them by hand.
-
-Every part imports the spine the same way: `import { BOS } from "../../main.ts"`
-(Node ≥ 22.18 runs `.ts` directly). The spine never imports parts at load time,
-only in `bos.load()`, so there are no import cycles.
+`dist/` is ignored on the coding branches. The release on `master` builds the
+bundle and commits it, so the marketplace always installs a plugin that needs
+nothing but Node. `tests/bundle.test.mjs` runs it as an installed plugin.
 
 ## Why the code is scattered into small files
 
-- **One concern per file.** A step, a bridge helper or a model is small enough
-  to read whole, and its path says what it is (`procedures/closing/capture-ttystory.mjs`).
+- **One concern per file.** A step, a bridge or a tool is small enough to read
+  whole, and its path says what it is (`procedures/closing/capture-ttystory.mjs`).
 - **Revisions don't collide.** The owner and agents work in parallel. When the
   owner revises one file, an agent's next change to another file doesn't
   overwrite it. Long files turn every change into a merge of everything.
@@ -90,26 +93,32 @@ So: add a new file rather than growing an old one, collect it in the nearest
 
 ## Rules
 
-1. Procedures are code. A new BOS behaviour is a procedure step in its own
-   file, assembled in `procedures/<name>/_index.mjs` and described in its `DESCRIPTION.md`.
+1. Procedures are code. A new behaviour of the suit is a procedure step in its
+   own file, assembled in `procedures/<name>/_index.mjs` (the core's `Procedure`)
+   and described in its `DESCRIPTION.md`. A behaviour of the workshop itself goes to the core.
 2. BOS creates only what is missing and never overwrites or deletes. Keep
-   every write behind `createIfMissing` or an explicit, dry-run-aware step.
-3. Outside systems are reached only through bridges: dockerode, octokit and
-   isomorphic-git live there, nowhere else.
-4. Test against a temporary workshop (`--workshop=` / `BOS_WORKSHOP`, or `tests/helpers.mjs`), never the real one. Run `npm test`.
-5. Branch flow: work on `developement`; `bos project promote` moves it to `revision` →
+   every write behind the core's `createIfMissing` or an explicit, dry-run-aware step.
+3. Outside systems are reached only through bridges (`src/bridges/`); files and
+   commands through the core's `Host` where it can.
+4. MCP offers only read-only tools. A tool that writes is `readOnly: false` and
+   stays on the command line.
+5. Test against a temporary workshop (`tests/helpers.mjs`: `sandbox()`), never the
+   real one. Run `npm test`; `tests/bundle.test.mjs` builds and runs the bundle.
+6. Branch flow: work on `development` (or your own `dev/<name>`); `revision` →
    `testing` → `releasing` → `master` (pull request). Never commit to `master` directly.
-6. The owner works in parallel with agents. Re-check `git status` and the tree
+7. The owner works in parallel with agents. Re-check `git status` and the tree
    before acting, and treat what you find as intended.
-7. Unknowns are marked [`TODO`]; don't invent meanings. Mark interpretations *(assumed)*.
-8. Commits are conventional commits (`type(scope): subject`). The type decides the
+8. Unknowns are marked [`TODO`]; don't invent meanings. Mark interpretations *(assumed)*.
+9. Commits are conventional commits (`type(scope): subject`). The type decides the
    next version, so choose it honestly: `feat` for new behaviour, `fix` for fixes.
    Husky's hooks run tests and commitlint; don't bypass them with `--no-verify`.
    Details: `docs/tutorials/committing-and-releasing.md`.
-9. Tests use vitest (`npm test`); write new ones in `tests/*.test.mjs`.
 10. Biome lints and formats (`npm run lint`, `npm run format`; config `biome.json`:
     2 spaces, double quotes, semicolons, 120 columns). Silence a rule only with a
     `// biome-ignore <rule>: <reason>` that says why.
 11. Before calling any AI resident (ollama model), ask the House
-    (`resources/house/`, `models/house/`): only `active` residents are called.
+    (`resources/house/`, `src/house/`, `bos house may-call`): only `active` residents are called.
     The EON family rests by its own decision; never call, prompt or inspect it.
+12. Manifests carry one version: `package.json`, `.claude-plugin/plugin.json`,
+    `.claude-plugin/marketplace.json`, `gemini-extension.json`. The release sets them
+    all (`release/sync-plugin-version.mjs`); don't bump them by hand.

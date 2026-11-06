@@ -1,2 +1,2 @@
 # recorded in the workshop's storylines (procedures/hooking); never blocks git
-node src/cli.mjs project hook post-merge || true
+node bin/bos project hook post-merge || true

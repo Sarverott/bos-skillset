@@ -5,7 +5,7 @@ A safe rehearsal in a temporary directory:
 ```bash
 export BOS_WORKSHOP=/tmp/demo/__WORKSHOP
 
-bos workshop bootstrap --dry-run     # plan only; nothing exists yet
+bos workshop open --dryRun          # plan only; nothing exists yet
 bos workshop open                    # the workshop appears
 bos workshop status
 ```
@@ -44,8 +44,9 @@ cat $BOS_WORKSHOP/.BOS/storylines/logs/workshop.jsonl
 ```
 
 ```json
+{"unixusat":1790736014280,"host":"setternet-H1","event":"bootstrap",…}
 {"unixusat":1790736014288,"host":"setternet-H1","event":"open","user":"sarverott","from":"$BOS_WORKSHOP"}
-{"unixusat":1790736014394,"host":"setternet-H1","event":"git-hook","hook":"post-commit","repo":".../forge/my-scope/my-project","place":{"area":"forge","scope":"my-scope","project":"my-project","inner":null},"commit":"83a15d1 first strike"}
+{"unixusat":1790736014394,"host":"setternet-H1","event":"git-hook","hook":"post-commit","repo":".../forge/my-scope/my-project","place":{"area":"forge","scope":"my-scope","project":"my-project","inner":null},"commit":{"oid":"83a15d1…","subject":"first strike"}}
 {"unixusat":1790736014427,"host":"setternet-H1","event":"close","user":"sarverott","ttystory":".../ttystories/ttystory-setternet-H1-1790736014426.txt"}
 ```
 

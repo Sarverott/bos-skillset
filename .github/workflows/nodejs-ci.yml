@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   pull_request:
-    branches: [ "master", "developement", "revision", "testing", "releasing" ]
+    branches: [ "master", "development", "revision", "testing", "releasing" ]
   push:
     branches: [ "revision" ]
   workflow_call:

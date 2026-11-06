@@ -12,7 +12,8 @@ A new page also needs an entry in `nav:` in `mkdocs.yml`.
 | Section | Contents |
 | ------- | -------- |
 | [glossary/](glossary/README.md) | one page per element of the environment: what it is, why it exists, where it lives |
-| tutorials | [preinstall](tutorials/preinstall.md) → [installation](tutorials/installation.md) → [getting started](tutorials/GETTING_STARTED.md) → [first use](tutorials/first-use-example.md); [logicflows](tutorials/logicflow-explanation.md) |
+| tutorials | [preinstall](tutorials/preinstall.md) → [installation](tutorials/installation.md) → [getting started](tutorials/GETTING_STARTED.md) → [first use](tutorials/first-use-example.md); [agent suit](tutorials/agent-suit.md); [logicflows](tutorials/logicflow-explanation.md); [committing and releasing](tutorials/committing-and-releasing.md) |
 | infographics | [branch movement procedures](infographics/branch-movement-procedures.md) |
 
-Order of truth: glossary (meaning) → `src/models/` (structure) → `src/procedures/` (behaviour).
+Order of truth: glossary (meaning) → the core's `src/models/` (structure) → `src/procedures/`
+here and in the core (behaviour).

@@ -1,13 +1,13 @@
 # Built by Read the Docs (.readthedocs.yaml) and locally: `task docs:serve`.
 # The docs are a self-contained sub-project: config, uv project, lock and Taskfile live
 # here, next to the pages. Always build from the repository root: mkdocs build -f docs/mkdocs.yml
-site_name: Blacksmith Organization System
-site_description: An ordered digital workshop for code crafting
+site_name: BOS skillset
+site_description: "The Blacksmith Organization System for AI agents: skills, plugins, MCP"
 site_author: Sett Sarverott
 site_url: !ENV [READTHEDOCS_CANONICAL_URL, "http://127.0.0.1:8000/"]
-repo_url: https://github.com/Sarverott/blacksmith-organization-system
-repo_name: blacksmith-organization-system
-edit_uri: edit/developement/docs/   # docs are edited where code is: on developement
+repo_url: https://github.com/Sarverott/bos-skillset
+repo_name: bos-skillset
+edit_uri: edit/development/docs/   # docs are edited where code is: on development
 copyright: Copyright &copy; 2019-2026 Sett Sarverott, MIT license
 
 docs_dir: .
@@ -65,8 +65,8 @@ nav:
       - tutorials/GETTING_STARTED.md
       - tutorials/first-use-example.md
       - tutorials/logicflow-explanation.md
-      - tutorials/committing-and-releasing.md
       - tutorials/agent-suit.md
+      - tutorials/committing-and-releasing.md
   - Glossary:
       - glossary/README.md
       - Network:

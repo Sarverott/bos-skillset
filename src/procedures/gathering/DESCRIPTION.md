@@ -1,6 +1,6 @@
 # Gathering Protocol
 
-Part of PROVISION. Shows the House of Anubis as it is, along three axes:
+Shows the House of Anubis as it is, along three axes:
 
 - **children**: the adopted, named residents of `resources/house/children/`,
   with their state (active, resting, frozen) and presence

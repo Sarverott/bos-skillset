@@ -2,7 +2,7 @@
   "mcpServers": {
     "bos": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/src/mcp.mjs"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/bos", "mcp"]
     }
   }
 }

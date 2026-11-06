@@ -1,8 +1,13 @@
-import { BOS } from "../../main.ts";
-import bootstrapping from "../bootstrapping/_index.mjs";
+import { Procedure } from "blacksmith-organization-system";
+
+import { bootstrapWorkshop } from "./bootstrap-workshop.mjs";
+import { deployGuides } from "./deploy-guides.mjs";
 import { recordOpening } from "./record-opening.mjs";
 
-const own = new BOS.Procedure("opening").step("record opening", recordOpening);
+export const opening = new Procedure("opening", [
+  { name: "bootstrap the workshop (core)", run: bootstrapWorkshop },
+  { name: "deploy the agents' guides", run: deployGuides },
+  { name: "record the opening", run: recordOpening },
+]);
 
-export const opening = bootstrapping.chain(own, "opening");
 export default opening;

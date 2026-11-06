@@ -1,3 +1,8 @@
 #!/usr/bin/env node
-// `bos` on the Bash PATH while the Claude Code plugin is enabled
-await import(new URL("../src/cli.mjs", import.meta.url));
+// `bos`: the plugin's command (on the agent's PATH while the Claude Code plugin is enabled, and
+// what its hooks and MCP server run). The bundle when the release built it (no node_modules
+// needed); in a development clone, the source with its node_modules.
+import { existsSync } from "node:fs";
+
+const bundle = new URL("../dist/bos-skillset.mjs", import.meta.url);
+await import(existsSync(bundle) ? bundle : new URL("../src/cli.mjs", import.meta.url));

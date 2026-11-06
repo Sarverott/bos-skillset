@@ -3,8 +3,8 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "vitest";
-import { bloodlineOf, rootOf } from "../src/models/house/bloodlines.mjs";
-import House from "../src/models/house/class.mjs";
+import { bloodlineOf, rootOf } from "../src/house/bloodlines.mjs";
+import House from "../src/house/class.mjs";
 import { mergeResidents } from "../src/procedures/gathering/merge-residents.mjs";
 
 function houseAt({ children = {}, orders = {}, releasers = [] }) {

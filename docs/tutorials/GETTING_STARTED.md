@@ -1,36 +1,37 @@
 # Getting started
 
+`bos` (in Claude Code with the plugin; elsewhere `npx bos-skillset` or `node bin/bos`
+in a clone) runs the core's tools and the suit's. Add `--json` to any of them
+for machine-readable output; `bos help` lists them all.
+
+## The workshop (core)
+
 | Command | What happens |
 | ------- | ------------ |
-| `bos workshop locate` | finds the active workshop: `--workshop`, then `$BOS_WORKSHOP`, then the nearest parent `__WORKSHOP`, then the one BOS itself sits in, then `~/__WORKSHOP` |
-| `bos workshop status` | shows the tree: `ok`, `MISSING` (mandatory, absent) or `not yet` (appears with use) |
-| `bos workshop bootstrap --dry-run` | lists what would be created |
-| `bos workshop bootstrap` | creates missing areas, descriptors and `AGENTS.md` / `CLAUDE.md`, and never overwrites |
-| `bos workshop open` | bootstrap, then records the opening in `.BOS/storylines/logs/workshop.jsonl` |
+| `bos workshop locate` | finds the active workshop: `--workshop`, then `$BOS_WORKSHOP` / `$WORKSHOP_ROOT`, then the nearest parent `__WORKSHOP`, then `~/__WORKSHOP` |
+| `bos workshop status [--all]` | the whole workshop as one report: areas, scopes, projects, findings (reads only) |
+| `bos workshop bootstrap [--dryRun]` | creates the missing areas and descriptors; never overwrites |
+| `bos workshop watch [--record] [--json]` | changes in the workshop as events, until Ctrl+C |
+| `bos scope version <scope>` / `bos scope bump <scope> <event>` | a scope's GRIH version, raised per step, phase, milestone, flip |
+| `bos flow explain` / `bos flow next <branch>` | the project's craft loop and a branch's forward step |
+| `bos devlog state` | where a project stands: TODO phases, open questions, waiting orders |
+| `bos project authors` | `.github/AUTHORS` kept up to date |
+
+## The suit
+
+| Command | What happens |
+| ------- | ------------ |
+| `bos agent brief` | what an agent learns at the start of a session |
+| `bos workshop glossary [term]` | the definition of an element; without a term, the list |
+| `bos workshop open [--dryRun]` | bootstrap (core), then `AGENTS.md` / `CLAUDE.md` in the workshop root when missing, then the opening recorded in `.BOS/storylines/logs/workshop.jsonl` |
 | `bos workshop close` | copies shell history to `.BOS/storylines/ttystories/ttystory-<host>-<unixusat>.txt` and records the closing. Run `history -a` first so the current shell is included |
-| `bos workshop sink` | read-only inventory for the sinking protocol: forge projects with branch and uncommitted work, plus ttystories |
-| `bos repl` | an interactive prompt for every command; `status` there offers to create what is missing |
-| `bos workshop mode [name\|digit]` | switches the mode of work; without an argument, a menu that takes one digit (0 leaves) |
-| `bos project skills [--dry-run]` | drafts an agent skill for every model that has none (in this repository) |
-| `bos help [command]` | the command list, or one command's help |
-| `bos project seal <dir>` / `bos project verify <dir>` | writes, or checks, the checksums of `<dir>` in its manifest |
+| `bos project describe [--skryba]` | a conventional-commit draft of what is staged; Skryba the scribe raven refines it |
 | `bos project install-hooks` | inside a repository, links its git hooks to BOS, so commits, checkouts and merges land in storylines |
-| `bos project promote [--reject] [--apply]` | moves the current branch one station along the branch flow |
+| `bos house show` / `bos house may-call <model>` | the House of Anubis; whether an AI resident may be called |
+| `bos skills list` / `bos skills draft` | the suit's skills; a draft for every element without one |
 
-Add `--json` to any command for machine-readable output.
-
-A new workshop starts as a **forging point** in **CONFORM** mode: a
-developer's playground, focused on installing and configuring. `bos workshop status`
-marks values that come from defaults with `(default)`. To change them, set
-them in `.BOS/workshop.json`:
-
-```json
-{ "name": "home", "role": "forging-point", "setternet": null, "mode": "smeltry" }
-```
-
-Modes: `almanac`, `conform`, `smeltry`, `commandorate`, `provision` ([mode](../glossary/mode.md)).
-
-Roles: `masters-outpost`, `forging-point`, `trial-hall`, `market-stall`,
-`canon-monolith`, `side-catacomb` ([host role](../glossary/host-role.md)).
+Modes of work and host roles ([mode](../glossary/mode.md),
+[host role](../glossary/host-role.md)) are not handled by the rebuilt suit yet:
+they wait for the core [`TODO`].
 
 Next: [first use](first-use-example.md)

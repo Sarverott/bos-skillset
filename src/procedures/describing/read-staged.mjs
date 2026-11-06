@@ -1,7 +1,8 @@
-import GitClient from "../../bridge/git-client/_index.mjs";
+import GitCli from "../../bridges/git-cli.mjs";
 
-export const readStaged = async (context) => {
-  const git = new GitClient();
-  context.repo = (await git.root(context.options.cwd ?? process.cwd())) ?? process.cwd();
-  context.staged = await git.staged(context.repo);
+export const readStaged = (context) => {
+  const git = new GitCli(context.host);
+  const cwd = context.options.dir ?? context.host.cwd();
+  context.repo = git.root(cwd) ?? cwd;
+  context.staged = git.staged(context.repo);
 };
