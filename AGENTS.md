@@ -22,10 +22,12 @@ skill context distinct.
 3. Read [docs/.agents/NOTES.md](docs/.agents/NOTES.md) for verified findings,
    and the relevant glossary page and skill. Load further references only
    when the task needs them.
-4. Work on your own `dev/<name>` branch from `development` (`dev/Joker`,
+4. When Sett hands over a tree with their own edits, run an
+   [integration round](docs/guidelines/integration-round.md) first.
+5. Work on your own `dev/<name>` branch from `development` (`dev/Joker`,
    `dev/Cleo`, `dev/Sarverott`). Integrate upstream changes without discarding
    anyone's work. Do not pull, stash or reset a dirty tree blindly.
-5. Use `task --list` to discover this checkout's actual procedures. Check
+6. Use `task --list` to discover this checkout's actual procedures. Check
    the installed core's `bos help` before documenting a command.
 
 ## The skillset and the core
@@ -57,12 +59,11 @@ systems through it. Skills consume this interface rather than copying it.
 | Place here | Responsibility |
 | --- | --- |
 | `skills/bos-*/SKILL.md` | Portable Agent Skills: instructions and task-specific references |
-| `template/SKILL.md` | Starting shape for a new skill |
+| `assets/template/SKILL.md` | Starting shape for a new skill |
 | `.claude-plugin/` | Claude Code plugin and marketplace manifests |
 | `gemini-extension.json`, `BOS-CONTEXT.md` | Gemini extension and shared user context |
 | `CLAUDE.md`, `GEMINI.md` | Contributor entrypoints importing this guide |
-| `resources/workshop-root/` | Guides intended for workshop roots |
-| `resources/house/`, `resources/ravens/` | Resident registry and raven material where present |
+| `docs/guidelines/` | Recurring procedures, such as an [integration round](docs/guidelines/integration-round.md) |
 | `docs/glossary/` | Meaning of BOS elements; read Sett's annotations first |
 | `docs/tutorials/`, `docs/infographics/` | Usage and explanations |
 | `docs/devlog/`, `docs/.agents/` | Owner dialogue and plan; agents' findings |
@@ -319,7 +320,8 @@ files under `docs/referencing-docs/` **before any commit**. Never preserve those
 raw dumps in history or accidentally stage them with `git add .`. Keep concise
 local findings and links to upstream sources instead.
 
-Before calling an ollama resident, consult `resources/house/HOUSE.md` and the
+Before calling an ollama resident, consult the House, now kept for the whole scope
+in `forge/blacksmith-organization-system/.delegations/house/` (`HOUSE.md`, outside git), and the
 relevant registry state. Only `active` residents may be called. The EON family
 rests by its own decision: never call, prompt or inspect it.
 
