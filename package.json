@@ -1,0 +1,24 @@
+{
+  "name": "bos-skillset",
+  "version": "1.0.1",
+  "private": true,
+  "description": "BOS for AI agents: Claude Code plugin, Codex plugin, Gemini CLI extension and Agent Skills; tooling manifest that pins the BOS core",
+  "homepage": "https://github.com/Sarverott/bos-skillset",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sarverott/bos-skillset.git"
+  },
+  "license": "MIT",
+  "author": "Sett Sarverott <sett@sarverott.com> (https://github.com/Sarverott)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "bos": "bos",
+    "check": "task check"
+  },
+  "dependencies": {
+    "blacksmith-organization-system": "^1.11.0"
+  }
+}

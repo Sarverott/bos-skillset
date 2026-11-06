@@ -1,0 +1,41 @@
+# Labels for pull requests, applied by .github/workflows/label.yml
+# (actions/labeler@v4 format: label → list of path globs).
+
+skills:
+  - skills/**/*
+  - SKILL.md
+  - assets/template/**/*
+
+adapters:
+  - .claude-plugin/**/*
+  - .codex-plugin/**/*
+  - gemini-extension.json
+  - BOS-CONTEXT.md
+  - .mcp.json
+  - .app.json
+  - .lsp.json
+  - settings.json
+  - hooks/**/*
+
+documentation:
+  - docs/**/*
+  - README.md
+  - AGENTS.md
+  - CHANGELOG.md
+
+devlog:
+  - docs/devlog/**/*
+  - docs/changelog/**/*
+  - docs/.agents/**/*
+
+dependencies:
+  - package.json
+  - package-lock.json
+  - docs/pyproject.toml
+  - docs/uv.lock
+  - docs/requirements.txt
+
+ci:
+  - .github/**/*
+  - Taskfile.yml
+  - docs/Taskfile.yml

@@ -6,7 +6,8 @@ Needed:
 
 For the `bos` command the skills use:
 
-- **Node.js ≥ 22** and the core (`npm install -g blacksmith-organization-system`)
+- **Node.js ≥ 22.18** and the core (`npm install blacksmith-organization-system`
+  locally, or `-g`; the Claude Code and Codex plugins install it themselves)
 - **git**
 - **gh**: the core's `bos flow next-pr` / `automerge` open and merge pull requests
 

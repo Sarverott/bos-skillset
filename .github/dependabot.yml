@@ -25,6 +25,13 @@ updates:
       docs-minor-patch:
         patterns: ["*"]
         update-types: [minor, patch]
-
-# Re-enable npm updates when the root package.json is a valid manifest with
-# dependencies. npm tooling is still unconfigured.
+  - package-ecosystem: npm
+    directory: /
+    target-branch: development
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      core-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]

@@ -1,0 +1,31 @@
+{
+  "name": "bos",
+  "version": "1.0.1",
+  "description": "Skills for working inside a BOS workshop: its areas, scopes, projects, the craft loop and the House of Anubis",
+  "author": {
+    "name": "Sett Sarverott",
+    "email": "sett@sarverott.com",
+    "url": "https://github.com/Sarverott"
+  },
+  "homepage": "https://github.com/Sarverott/bos-skillset",
+  "repository": "https://github.com/Sarverott/bos-skillset",
+  "license": "MIT",
+  "keywords": ["bos", "workshop", "forge", "craft-loop", "house-of-anubis", "agent-skills"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "apps": "./.app.json",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "Blacksmith Organization System",
+    "shortDescription": "Work inside a BOS workshop",
+    "longDescription": "Teaches the agent the BOS workshop: its standard areas (.BOS, devarmory, forge, craftbook, archive), scopes and projects, the craft loop of branches and the House of Anubis. Commands come from the BOS core (bos).",
+    "developerName": "Sett Sarverott",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/Sarverott/bos-skillset",
+    "defaultPrompt": [
+      "Where is my active BOS workshop and what is missing in it?",
+      "Where should this new project go in the workshop?"
+    ]
+  }
+}
