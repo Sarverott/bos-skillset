@@ -23,7 +23,8 @@ a note or draft → `craftbook/scrapnotes/` · a mirror or closed repository →
 
 ## Start here
 
-When the core's `bos` command is installed (`npm install -g blacksmith-organization-system`):
+When the core's `bos` command is installed (`npm install blacksmith-organization-system`
+and `npx bos`, or `-g` for every directory):
 
 - `bos workshop locate`: the active workshop and the rule that found it
 - `bos workshop status`: the whole workshop as one report with findings (reads only)
