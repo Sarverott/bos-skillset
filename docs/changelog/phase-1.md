@@ -50,3 +50,18 @@ The activation PR #39 merged as `4dc7413`. The open Dependabot inventory
 is now empty. Grouping is effective on the default branch; both branch
 copies of the policy are synchronized. The configuration-only branch's
 full `task check` passed locally, with existing plugin listing warnings.
+
+
+## UNIXUSAT=1793963814492 · commit 4eb7737, first grouped PR #40
+
+The activated policy opened a group for backrefs 8.1, certifi
+2026.10.23 and mkdocs-material 9.8.0. The new consistency check rejected
+its original mismatched lockfile/export locally and in GitHub run
+`42208366149`. Repair `4eb7737` re-resolves precisely those three versions
+and is pushed without rewriting the bot branch. Consistency, strict docs
+build, installed-package compatibility and GitHub docs/skills/security
+checks pass on the repaired head.
+
+PR #40 merged as `2317581` after those checks passed. The active policy
+now covers the first grouped maintenance round as well as the original
+stack cleanup.
