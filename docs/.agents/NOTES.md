@@ -3,6 +3,42 @@
 Newest findings first. Date observations, name evidence, distinguish proposals
 from decisions, and re-check facts that may drift. Sett answers in the devlog.
 
+## 2026-11-06 — Joker: portable Dependabot skill for the next owning instance
+
+- Sett requested a skill for the instance assigned to the core repository,
+  explicitly preserving that repository's ownership boundary. No core checkout
+  or core PR operations were performed in this round.
+- `84ff4ea` adds `skills/handling-dependabot-prs/`: lowercase directory and
+  discovery name follow the Agent Skills specification. The requested topic
+  `handling-dependabot-PRs` is retained in the visible title.
+- The 139-line entrypoint routes to bundled GitHub, npm/uv/Actions and BOS
+  handoff references. A maintenance ledger, Codex UI metadata and eight
+  offline behavioral snapshots ship in the same folder; no repository-root
+  or sibling-checkout reference is required by an installed copy.
+- It distinguishes review from authorized management, binds operations to the
+  owning repository, preserves concurrent work, refreshes moving heads/bases,
+  checks source locks and derived artifacts, and verifies landed replacements
+  before closing duplicates. The core's real npm project must not inherit the
+  skillset's earlier placeholder-based updater decision.
+- The existing Codex manifest exposes `./skills/`, so no adapter rewrite or
+  dependency change is needed for this new skill. Actual installation into
+  a Codex session is Sett's next step; it was not simulated as a successful
+  host session here. Install from the updated development checkout until the
+  contribution follows the normal release route.
+- Validation passed: skill-creator quick validator, an isolated folder copy
+  with all local links confined to that copy, metadata/fixture checks, the
+  exact CI discovery step, a negative discovery fixture omitting only the
+  workflow name, and full `task check`. The eight behavior cases are provided
+  for independent model evaluation, not reported as executed model runs.
+- CI now verifies every skill folder explicitly instead of using a `bos-`
+  prefix count, which could miss a workflow skill. Discovery still finds the
+  existing template (`skill-name`); its exclusion remains a separate TODO.
+- Owner intake preserved 12 file changes, one per commit on `dev/Sarverott`,
+  then merged/pushed them through development (`3749377`). This includes the
+  ruleset-export deletion and editor settings. Existing comment whitespace in
+  the supplied snippet was retained. An interrupted intake attempt was safely
+  refused by git before integration and completed on the owner branch.
+
 ## 2026-11-06 — Cleo: adapters filled, core pinned locally
 
 - `package.json` pins the core `blacksmith-organization-system` ^1.11.0. It

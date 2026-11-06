@@ -30,6 +30,8 @@ Phase 1 is follow-on work, not part of the contributor-guide cleanup.
 The skillset as one package: Claude Code plugin, Codex plugin, Gemini CLI
 extension, Agent Skills and an MCP toolkit adapter, all driven by the pinned core.
 
+- [x] Package the verified Dependabot maintenance procedure as an installed workflow skill, with self-contained references, Codex metadata, a ledger template and eight offline evaluation cases (`handling-dependabot-prs`, commit `84ff4ea`).
+- [ ] Execute the new skill's behavioral evaluation cases as independent model runs; structural/package/discovery checks already pass.
 - [ ] Core: an MCP server (`bos mcp`, in the core repository); then declare it in `.mcp.json` (and `gemini-extension.json` `mcpServers`) through the pinned package, `${CLAUDE_PLUGIN_DATA}/node_modules/.bin/bos mcp`.
 - [ ] Codex marketplace: Codex reads its own schema only at `.agents/plugins/marketplace.json`; move `.codex-plugin/marketplace.json` there, or drop it and keep the `.claude-plugin/marketplace.json` fallback (Sett's call).
 - [ ] Codex now prefers a portable root `plugin.json` (agent-plugins.org schema) with `extensions["com.openai"]`; decide whether to adopt it beside `.codex-plugin/plugin.json`.
