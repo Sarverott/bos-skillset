@@ -23,8 +23,9 @@ tasks:
     cmds: ['claude plugin validate .']
 
   check:
-    desc: skills, plugin and a strict docs build
+    desc: lock/export consistency, skills, plugin and a strict docs build
     cmds:
+      - task: docs:check-lock
       - task: skills
       - task: plugin
       - task: docs:build

@@ -142,8 +142,10 @@ advance the remaining stations by reviewed pull requests. Bring the released
 state back into `development` before the next round. Do not rewrite shared
 history or force-push to make the graph fit a diagram.
 
-**What runs here today:** only the checks workflow is installed. There is no
-local `.github/bos.json`, commit-version hook or automatic release pipeline.
+**What runs here today:** the checks workflow validates dependencies, skills
+and docs. The default branch also carries repository triage workflows
+(greetings, labels, stale issues and issue summaries). There is no local
+`.github/bos.json`, commit-version hook or automatic release pipeline.
 The core's default loop can explain directions; it does not prove that GitHub
 will promote branches. In the core repository, the current release routine
 uses the shorter `revision → master` route; do not silently apply that exception
@@ -249,7 +251,8 @@ The existing entrypoints are:
 | `task docs:serve` | MkDocs preview |
 | `task docs:build` | Strict documentation build |
 | `task docs:lock` | Refresh the docs uv lock and exported requirements |
-| `task check` | Skill discovery, plugin validation, strict docs build |
+| `task docs:check-lock` | Verify that exported requirements match the source lockfile |
+| `task check` | Lock/export consistency, skill discovery, plugin validation, strict docs build |
 
 Use schema `version: '3'`, two spaces, public `desc:` entries, colon namespaces
 and small included Taskfiles. Keep procedures visible through Task rather than
@@ -261,8 +264,9 @@ inputs, and distinguish `preconditions` (may run) from `status` (already done).
 Consult the [Task schema](https://taskfile.dev/docs/reference/schema) for the
 installed version; retain links instead of committing printed manuals.
 
-**Current dependency boundary:** there is no `package.json` here. The core is
-installed separately; docs use `docs/pyproject.toml`, `uv.lock` and the exported
+**Current dependency boundary:** root `package.json` is an empty placeholder;
+npm tooling is not configured yet. The core is installed separately;
+docs use `docs/pyproject.toml`, `uv.lock` and the exported
 `requirements.txt`. A skill install copies instructions; it does not imply
 `npm install` or make `bos` available.
 
@@ -276,6 +280,11 @@ runtime dependency of a future executable adapter as a runtime dependency,
 and verify how each plugin host obtains it. Do not restore the removed
 bundled application or assume plugin hosts run package installation.
 This integration remains work in the devlog, not an implemented setup task.
+
+For update batches, follow [dependency maintenance](docs/guidelines/dependencies.md).
+Dependabot tracks the docs' uv lockfile and groups routine updates; requirements
+are exported from that resolution. Activate configuration changes on the
+default branch as well as `development`; Dependabot reads the former.
 
 ## Core tools worth harvesting
 

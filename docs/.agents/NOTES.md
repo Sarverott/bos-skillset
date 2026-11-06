@@ -3,6 +3,58 @@
 Newest findings first. Date observations, name evidence, distinguish proposals
 from decisions, and re-check facts that may drift. Sett answers in the devlog.
 
+## 2026-11-06 — Joker: first grouped update validates the guard
+
+- After activation, Dependabot opened PR #40 with three updates: backrefs
+  8.1, certifi 2026.10.23 and mkdocs-material 9.8.0. Its export named the new
+  backrefs/certifi versions but its lockfile retained the old versions.
+- `task docs:check-lock` reproduced the mismatch; the original GitHub Checks
+  run `42208366149` failed. Re-resolve the three requested versions with uv
+  and export again, then push repair `4eb7737` as a normal fast-forward to
+  the bot branch. No requirements-only edits or force pushes.
+- PR #40 merged as `2317581` after its checks passed.
+- The repaired head passes consistency, strict docs build, Python 3.12
+  installed-package compatibility, and GitHub docs/skills/security checks.
+  The new check catches a real bot-generated divergence as intended.
+
+## 2026-11-06 — Joker: Dependabot maintenance round
+
+- Owner intake: the single uncommitted Copilot ruleset export is preserved
+  unchanged as `dc55402` on `dev/Sarverott`, integrated into development as
+  `3d1fdcb`, and pushed. It does not apply repository settings by itself.
+- Nine open PRs (#26, #27, #28, #30, #33–#37) covered six unique packages.
+  All edited generated requirements only. Resolve the versions together,
+  regenerate both artifacts, and merge the batch through PR #38 (`69527e6`).
+  Verify the exact lockfile/export on development before closing all nine
+  originals as superseded. The stack is cleared.
+- The tested versions are Markdown 3.11.2, MarkupSafe 3.0.4, platformdirs
+  4.14.3, pymdown-extensions 12.3, python-dateutil 4.0.0 and watchdog 7.0.0.
+  Resolution also removes six and adds tzdata. No direct dependency ranges
+  were changed.
+- Dependabot now uses native uv in `/docs`, includes transitive dependencies,
+  groups weekly minor/patch updates, leaves majors separate and caps open
+  version-update PRs at three per ecosystem. npm is omitted until the root
+  placeholder is a usable project. Configuration-only PR #39 (`4dc7413`)
+  activates this policy on master, where Dependabot reads it. No feature or
+  adapter changes were promoted to master.
+- `task docs:check-lock` and the docs CI job reject a stale requirements
+  export without changing it. Docs commands use `--locked`. The procedure is
+  [dependency maintenance](../guidelines/dependencies.md).
+- Validation: Python 3.12 resolution, installed-package compatibility, strict
+  docs build, and an edited page rebuilt in a temporary watchdog 7 preview.
+  The preview fixture locates its config outside the docs directory, as
+  MkDocs serve requires. The export guard accepts the current file and
+  rejects a deliberately stale pin. GitHub docs, skills and security checks
+  passed on the batch and activation PRs. The activation branch's full
+  `task check` passed locally.
+- Remaining failures are independent of these updates: development's full
+  `task check` reaches the empty hooks/MCP JSON error; the Labeler workflow
+  fails because `.github/labeler.yml` is absent (confirmed in run
+  `42207408526`). The bot and adapter placeholders were not silently filled.
+- The connected GitHub app can read this repository but rejects PR writes
+  with HTTP 403. The authenticated local `gh` CLI completed the authorized
+  PR creation, merges and closures. No force push, tags or package publishing.
+
 ## 2026-11-06 — Cleo: integration round after Sett's scaffolding
 
 - Sett's edits after Joker's guide are on `dev/Sarverott`, one commit per file,
