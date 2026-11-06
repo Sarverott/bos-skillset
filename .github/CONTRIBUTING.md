@@ -1,7 +1,9 @@
 # Contributing
 
 1. Read the [glossary](../docs/glossary/README.md): skills follow meaning.
-2. Branch from `development` (here we work). Never commit to `master`.
+2. Branch from `development` into your own `dev/<name>`. Never commit to `master`.
+   Owner edits handed over in the tree go first through an
+   [integration round](../docs/guidelines/integration-round.md).
 3. This repository holds skills, manifests and docs, no code. A behaviour BOS
    needs goes to the core ([blacksmith-organization-system](https://github.com/Sarverott/blacksmith-organization-system));
    an idea not built yet goes to [docs/ideas](../docs/ideas/README.md).

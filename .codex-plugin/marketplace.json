@@ -1,0 +1,20 @@
+{
+  "name": "bos-skillset",
+  "owner": {
+    "name": "Sett Sarverott",
+    "url": "https://github.com/Sarverott"
+  },
+  "metadata": {
+    "description": "The Blacksmith Organization System (BOS) for AI agents: skills for working inside a workshop",
+    "version": "1.0.1"
+  },
+  "plugins": [
+    {
+      "name": "bos",
+      "source": "./",
+      "description": "Recognize BOS workshops and work inside them: areas, scopes, projects, the craft loop, the House of Anubis",
+      "version": "1.0.1",
+      "category": "productivity"
+    }
+  ]
+}
