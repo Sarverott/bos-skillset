@@ -19,6 +19,6 @@
     "check": "task check"
   },
   "dependencies": {
-    "blacksmith-organization-system": "^1.11.0"
+    "blacksmith-organization-system": "^1.14.0"
   }
 }
